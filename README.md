@@ -10,6 +10,10 @@ Download [Beaker](http://beakerbrowser.com), open it and navigato to **any Roton
 
 To change your display icon, update the SVG file located at `media/images/icon.svg`. The icon should be a square file for it to display properly. Keep it small.
 
+## Rich content
+
+- `TEXT >> MEDIA_NAME`, will connect a media filename from `/media/content/MEDIA_NAME.jpg`.
+
 ## Commands
 
 - `add:DAT`, to subscribe to a portal.
