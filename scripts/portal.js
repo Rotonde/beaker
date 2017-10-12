@@ -16,6 +16,8 @@ function Portal(data)
 
   this.install = function(el)
   {
+    this.data.dat = window.location.toString();
+
     el.appendChild(this.el);
     this.icon_el.innerHTML = "<img src='/media/images/icon.svg'/>";
     this.name_el.innerHTML = "@"+this.data.name;

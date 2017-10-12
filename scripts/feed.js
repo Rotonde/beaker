@@ -22,6 +22,7 @@ function Feed(feed_urls)
     for(id in r.portal.data.feed){
       var entry_data = r.portal.data.feed[id];
       entry_data.dat = window.location.toString();
+      entry_data.id = id;
       var entry = new Entry(entry_data);
       entries.push(entry);
     }
@@ -54,7 +55,8 @@ function Feed(feed_urls)
     var html = "";
 
     for(id in entries){
-      html += new Entry(entries[id]).to_html();
+      var entry = entries[id];
+      html += entry.to_html();
     }
     this.el.innerHTML = html;
   }

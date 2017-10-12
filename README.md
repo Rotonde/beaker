@@ -12,13 +12,13 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 
 ## Commands
 
-- `say TEXT`, to add an entry.
-- `add DAT:`, to subscribe to a portal.
-- `remove DAT:`, to unsubscribe to a portal.
+- `TEXT`, to add an entry.
+- `add:DAT:`, to subscribe to a portal.
+- `remove:DAT:`, to unsubscribe to a portal.
 - `edit name TEXT`, to update your portal name.
 - `edit desc TEXT`, to update your portal description.
+- `edit:ID TEXT`, to edit an entry.
 - `refresh`, to refresh.
-- `portal TEXT`, view portal details.
 
 ## Shortcuts
 

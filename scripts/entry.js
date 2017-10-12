@@ -4,6 +4,8 @@ function Entry(data)
   this.message = data.message;
   this.timestamp = data.timestamp;
   this.dat = data.dat;
+  this.id = data.id;
+  this.editstamp = data.editstamp;
 
   this.to_json = function()
   {
@@ -17,7 +19,7 @@ function Entry(data)
     html += "<img class='icon' src='"+this.dat+"/media/images/icon.svg'>";
     html += "<t class='message'>"+this.message+"</t><br/>";
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
-    html += "<t class='timestamp'>"+timeSince(this.timestamp)+" ago</t>";
+    html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>"+timeSince(this.timestamp)+" ago</c>";
 
     return "<div class='entry'>"+html+"<hr/></div>";
   }
@@ -47,5 +49,5 @@ function timeSince(date)
   if (interval > 1) {
     return interval + " minutes";
   }
-  return Math.floor(seconds) + " seconds";
+  return "a few seconds";
 }

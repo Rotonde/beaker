@@ -10,6 +10,8 @@ function Rotonde()
   this.install = function()
   {
     document.body.appendChild(this.el);
+
+    document.addEventListener('mousedown',r.mouse_down, false);
   }
 
   this.start = function()
@@ -30,6 +32,13 @@ function Rotonde()
   {
     this.feed = new Feed(feed);
     this.feed.install(this.el);
+  }
+
+  this.mouse_down = function(e)
+  {
+    if(!e.target.getAttribute("data-operation")){ return; }
+
+    r.operator.inject(e.target.getAttribute("data-operation"));
   }
 }
 

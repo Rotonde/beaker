@@ -16,11 +16,23 @@ function Operator()
   {
     var command = this.input_el.value.indexOf(" ") ? this.input_el.value.split(" ")[0] : this.input_el.value;
     var params  = this.input_el.value.indexOf(" ") ? this.input_el.value.split(' ').slice(1).join(' ') : null;
+
+    var option = command.indexOf(":") > -1 ? command.split(":")[1] : null;
+    command = command.indexOf(":") > -1 ? command.split(":")[0] : command;
     
     if(this.commands[command]){
-      this.commands[command](params);   
-      this.input_el.value = "";   
+      this.commands[command](params,option);   
     }
+    else{
+      this.commands.say(this.input_el.value.trim());
+    }
+    this.input_el.value = "";   
+  }
+
+  this.inject = function(text)
+  {
+    this.input_el.value = text;
+    this.input_el.focus();
   }
 
   this.commands = {};
@@ -30,6 +42,21 @@ function Operator()
     var data = {message:p,timestamp:Date.now()};
     var entry = new Entry(data);
     r.portal.add_entry(entry);
+  }
+
+  this.commands.edit = function(p,option)
+  {
+    r.portal.data.feed[option].message = p;
+    r.portal.data.feed[option].editstamp = Date.now();
+    r.portal.save();
+    r.feed.update();
+  }
+
+  this.commands.delete = function(p,option)
+  {
+    r.portal.data.feed.splice(option, 1)
+    r.portal.save();
+    r.feed.update();
   }
 
   this.key_down = function(e)
