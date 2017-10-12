@@ -20,7 +20,9 @@ function Feed(feed_urls)
 
     // Local
     for(id in r.portal.data.feed){
-      var entry = new Entry(r.portal.data.feed[id]);
+      var entry_data = r.portal.data.feed[id];
+      entry_data.dat = window.location.toString();
+      var entry = new Entry(entry_data);
       entries.push(entry);
     }
 
@@ -33,6 +35,7 @@ function Feed(feed_urls)
       for(entry_id in portal.feed){
         var entry_data = portal.feed[entry_id];
         entry_data.portal = portal.name;
+        entry_data.dat = portal_url;
         entries.push(new Entry(entry_data))
       }
     }

@@ -1,7 +1,8 @@
-body { font-size:12px; font-family: 'input_mono_regular'; overflow:hidden; padding:30px; line-height:20px; }
+body { font-size:12px; font-family: 'input_mono_regular'; padding:30px; line-height:20px; }
 t { display:inline-block; }
+hr { clear:both; }
 
-body #portal { padding:30px; border-right:5px solid black; max-width: 200px; float:left; margin-right:30px; margin-bottom:30px; }
+body #portal { padding:30px; border-right:5px solid black; max-width: 200px; float:left; margin-right:30px; margin-bottom:30px; position: fixed; left:30px; top:30px;}
 body #portal .icon { margin-bottom: 30px }
 body #portal .icon img { width:100px; height: 100px; display:block; }
 body #portal .name { font-family: 'input_mono_medium' }
@@ -9,10 +10,13 @@ body #portal .desc { margin-bottom:15px; }
 body #portal .port { text-decoration: underline; margin-right:15px; }
 body #portal .feed { text-decoration: underline; }
 
-body #feed { padding:30px; float:left; width:calc(100vw - 420px); min-width: 300px }
-body #feed .entry { border-bottom:1px solid #ddd; padding:5px 0px; }
+body #feed { padding:30px; float:left; width:calc(100vw - 420px); min-width: 300px; margin-left:300px; }
+body #feed .entry { border-bottom:1px solid #ddd; padding:5px 0px; line-height: 16px }
+body #feed .entry .icon { width:60px; height:60px; display:block; float:left; margin-right:20px;}
+body #feed .entry .message { margin-top:15px; }
+body #feed .entry .message a { color:red; }
 body #feed .entry .portal { font-family: 'input_mono_medium'; margin-right:15px; }
-body #feed .entry .timestamp { float:right; color:#aaa; }
+body #feed .entry .timestamp { color:#aaa; font-size:11px; }
 
 body #operator { background:#111; position: fixed; bottom: 0px; left:0px; width:100vw; }
 body #operator input { display: block; padding:15px; background:transparent; color:white; width:100%;}

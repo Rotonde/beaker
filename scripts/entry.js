@@ -3,6 +3,7 @@ function Entry(data)
   this.portal = data.portal ? data.portal : r.portal.data.name;
   this.message = data.message;
   this.timestamp = data.timestamp;
+  this.dat = data.dat;
 
   this.to_json = function()
   {
@@ -10,8 +11,15 @@ function Entry(data)
   }
 
   this.to_html = function()
-  {
-    return "<div class='entry'><t class='portal'>@"+this.portal+"</t><t class='message'>"+this.message+"</t><t class='timestamp'>"+timeSince(this.timestamp)+"</t></div>";
+  { 
+    var html = "";
+
+    html += "<img class='icon' src='"+this.dat+"/media/images/icon.svg'>";
+    html += "<t class='message'>"+this.message+"</t><br/>";
+    html += "<t class='portal'>@"+this.portal+"</t>";
+    html += "<t class='timestamp'>"+timeSince(this.timestamp)+" ago</t>";
+
+    return "<div class='entry'>"+html+"<hr/></div>";
   }
 }
 
