@@ -24,6 +24,7 @@ function Rotonde()
   {
     var archive = new DatArchive(window.location.toString())
     var portal_data = await archive.readFile('/portal.json');
+    portal_data.dat = window.location.toString();
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
   }

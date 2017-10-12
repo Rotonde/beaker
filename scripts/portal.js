@@ -1,6 +1,8 @@
 function Portal(data)
 {
   this.data = JSON.parse(data);
+  this.archive = new DatArchive(this.data.dat);
+  
   this.el = document.createElement('div'); this.el.id = "portal";
   this.icon_el = document.createElement('div'); this.icon_el.className = "icon";
   this.name_el = document.createElement('t'); this.name_el.className = "name";
@@ -24,6 +26,7 @@ function Portal(data)
     this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
     this.feed_el.innerHTML = this.data.feed.length+" entries";
+    document.title = "@"+this.data.name;
     r.load_feed(this.data.port);
   }
 

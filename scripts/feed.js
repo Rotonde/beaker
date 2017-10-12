@@ -1,11 +1,25 @@
 function Feed(feed_urls)
 {
+  this.feed_urls = feed_urls;
   this.el = document.createElement('div'); this.el.id = "feed";
+
+  this.archives = [];
 
   this.install = function(el)
   {
     el.appendChild(this.el);
     this.el.innerHTML = "Feed:";
+
+    for(id in this.feed_urls){
+      var archive = new DatArchive(this.feed_urls[id])
+      var fileEvents = archive.createFileActivityStream()
+      fileEvents.addEventListener('changed', e => {
+        console.log(e.path, 'changed')
+      })
+      this.archives.push();
+    }
+    this.archives.push(r.portal.archive);
+
     this.update();
   }
 
@@ -18,25 +32,14 @@ function Feed(feed_urls)
   {
     var entries = [];
 
-    // Local
-    for(id in r.portal.data.feed){
-      var entry_data = r.portal.data.feed[id];
-      entry_data.dat = window.location.toString();
-      entry_data.id = id;
-      var entry = new Entry(entry_data);
-      entries.push(entry);
-    }
-
-    // Remote
-    for(id in r.portal.data.port){
-      var portal_url = r.portal.data.port[id];
-      var archive = new DatArchive(portal_url)
+    for(id in this.archives){
+      var archive = this.archives[id];
       var portal_data = await archive.readFile('portal.json');
       var portal = JSON.parse(portal_data);
       for(entry_id in portal.feed){
         var entry_data = portal.feed[entry_id];
         entry_data.portal = portal.name;
-        entry_data.dat = portal_url;
+        entry_data.dat = archive.url;
         entries.push(new Entry(entry_data))
       }
     }
