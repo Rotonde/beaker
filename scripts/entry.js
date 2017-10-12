@@ -16,7 +16,7 @@ function Entry(data)
 
     html += "<img class='icon' src='"+this.dat+"/media/images/icon.svg'>";
     html += "<t class='message'>"+this.message+"</t><br/>";
-    html += "<t class='portal'>@"+this.portal+"</t>";
+    html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
     html += "<t class='timestamp'>"+timeSince(this.timestamp)+" ago</t>";
 
     return "<div class='entry'>"+html+"<hr/></div>";

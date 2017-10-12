@@ -4,15 +4,11 @@ This is an all inclusive Rotonde instance client and server.
 
 ## Setup
 
-Download [Beaker](http://beakerbrowser.com), open it and navigato to [any Rotonde profile](dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/), click the dropdown icon in the url and "Fork this site". Press `ctrl shift del`, to reset your portal details. Done!
-
-## How to follow/unfollow
-
-Share your `dat:` url to your friends or on your website. 
+Download [Beaker](http://beakerbrowser.com), open it and navigato to **any Rotonde profile**, click the dropdown icon in the url and "Fork this site". Press `ctrl shift del`, to reset your portal details. Done!
 
 ## Icon
 
-To change your display icon, update the SVG file located at `media/images/icon.svg`.
+To change your display icon, update the SVG file located at `media/images/icon.svg`. The icon should be a square file for it to display properly. Keep it small.
 
 ## Commands
 

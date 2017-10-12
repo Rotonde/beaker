@@ -2,7 +2,7 @@ function Operator()
 {
   this.el = document.createElement('div'); this.el.id = "operator";
   this.input_el = document.createElement('input'); this.input_el.id = "commander";
-
+  this.input_el.setAttribute("placeholder","Input command here")
   this.el.appendChild(this.input_el);
 
   this.install = function(el)
