@@ -6,10 +6,11 @@ function Entry(data)
   this.dat = data.dat;
   this.id = data.id;
   this.editstamp = data.editstamp;
+  this.media = data.media;
 
   this.to_json = function()
   {
-    return {message:this.message,timestamp:this.timestamp};
+    return {message:this.message,timestamp:this.timestamp,editstamp:this.editstamp,media:this.media};
   }
 
   this.to_html = function()
@@ -18,8 +19,14 @@ function Entry(data)
 
     html += "<img class='icon' src='"+this.dat+"/media/images/icon.svg'>";
     html += "<t class='message'>"+this.message+"</t><br/>";
+    
+    if(this.media){
+      console.log(this.media)
+      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>"
+    }
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
     html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>"+timeSince(this.timestamp)+" ago</c>";
+
 
     return "<div class='entry'>"+html+"<hr/></div>";
   }

@@ -10,7 +10,7 @@ body #portal .desc { margin-bottom:15px; }
 body #portal .port { text-decoration: underline; margin-right:15px; }
 body #portal .feed { text-decoration: underline; }
 
-body #feed { padding:0px 30px; float:left; width:calc(100vw - 420px); min-width: 300px; margin-left:240px; margin-top: 100px;}
+body #feed { padding:0px 30px; width:calc(100vw - 420px); min-width: 300px; margin-left:240px; margin-top: 20px; max-width:500px;}
 body #feed .entry { border-bottom: 1px solid #ddd;padding: 10px 0px;line-height: 20px;padding-left: 80px;position: relative;padding-bottom: 20px; }
 body #feed .entry .icon { width:60px; height:60px; display:block; float:left; margin-right:20px; position: absolute; left:0px;}
 body #feed .entry .message { margin-top:10px; }
@@ -20,6 +20,7 @@ body #feed .entry .timestamp { color:#aaa; font-size:11px; margin-right:15px; }
 body #feed .entry .timestamp:hover { cursor:pointer; text-decoration: underline; }
 body #feed .entry .editstamp { color:#aaa; font-size:11px; }
 body #feed .entry .editstamp:hover { cursor:pointer; text-decoration: underline; }
+body #feed .entry .media { max-width: 500px; width:100%; margin-top:15px; display:block; margin-bottom:15px; border-radius:4px; }
 
-body #operator { background: #111;position: fixed;top: 60px;left: 300px;width: calc(100vw - 420px); border-radius: 4px}
-body #operator input { display: block; padding:15px; background:transparent; color:white; width:100%;}
+body #operator { background: #ddd;width: calc(100vw - 420px); border-radius: 4px; max-width:500px; margin-left:280px; margin-top:40px;}
+body #operator input { display: block; padding:15px; background:transparent; color:black; width:100%;}

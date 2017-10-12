@@ -39,7 +39,18 @@ function Operator()
 
   this.commands.say = function(p)
   {
-    var data = {message:p,timestamp:Date.now()};
+    var message = p;
+    var media = null;
+    // Rich content
+    if(message.indexOf(" >> ") > -1){
+      media = message.split(" >> ")[1].split(" ")[0].trim();
+      message = message.split(" >> ")[0].trim();
+    }
+
+    var data = {message:message,timestamp:Date.now()};
+    if(media){
+      data.media = media;
+    }
     var entry = new Entry(data);
     r.portal.add_entry(entry);
   }
