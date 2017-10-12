@@ -16,7 +16,7 @@ function Feed(feed_urls)
       fileEvents.addEventListener('changed', e => {
         console.log(e.path, 'changed')
       })
-      this.archives.push();
+      this.archives.push(archive);
     }
     this.archives.push(r.portal.archive);
 

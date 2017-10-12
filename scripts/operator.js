@@ -72,6 +72,16 @@ function Operator()
     r.feed.update();
   }
 
+  this.commands.add = function(p,option)
+  {
+    var path = "dat://"+option+"/";
+    r.portal.data.port.push(path)
+
+    r.portal.save();
+    r.portal.update();
+    r.feed.update();
+  }
+
   this.commands.delete = function(p,option)
   {
     r.portal.data.feed.splice(option, 1)
