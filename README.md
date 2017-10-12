@@ -6,14 +6,14 @@ This is an all inclusive Rotonde instance client and server.
 
 - Download [Beaker](http://beakerbrowser.com).
 - Click the top-right dropdown, **create a new site**.
-- Clone this repo, and change the site folder to it.
-- Edit the dat.json file and put in your newly created site's url.
+- Clone this repo, and in beaker's top-right dropdown, change the site folder to it.
+- Open the dat.json file and put in your newly created site's url(accessible by pressing the icon next to the site name).
 - Press `ctrl shift del` to clear out my own data. Refresh.
-- You should see a blank feed, with a blank profile.
+- You should now see a blank feed, with a blank profile.
 
 ## Hashbase
 
-Since we're basically just testing, messing around for now. Here's how we'll accelerate the propagation. 
+Since we're basically just testing, messing around for now. Here's how we'll accelerate the propagation. This step will create an automated peer that will mirror your site.
 
 - Create yourself an [Hashbase](https://hashbase.io) account.
 - Click **Upload archive**.
