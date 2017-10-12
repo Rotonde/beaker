@@ -1,1 +1,1 @@
-{"name":"new_name","desc":"new_desc","port":[],"feed":[]}
+{"name":"neauoire","desc":"Something else","port":["dat://7f2ef715c36b6cd226102192ba220c73384c32e4beb49601fb3f5bba4719e0c5/"],"feed":[{"message":"This is my first post!","timestamp":1507846208609},{"message":"Now hosted on hashbase.io","timestamp":1507847924563},{"message":"@cblgh can you see this?","timestamp":1507848355016,"media":"hikari"}],"dat":"dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/"}

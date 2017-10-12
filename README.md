@@ -17,8 +17,8 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 
 ## Commands
 
-- `add:DAT`, to subscribe to a portal.
-- `remove:DAT`, to unsubscribe to a portal.
+- `dat://`, to subscribe to a portal.
+- `remove://`, to unsubscribe to a portal.
 - `edit:name TEXT`, to update your portal name.
 - `edit:desc TEXT`, to update your portal description.
 - `edit:ENTRY_ID TEXT`, to edit an entry.
