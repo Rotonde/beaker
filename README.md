@@ -13,6 +13,7 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 ## Rich content
 
 - `TEXT >> MEDIA_NAME`, will connect a media filename from `/media/content/MEDIA_NAME.jpg`.
+- `TEXT // THREAD_NAME`, will collect the entry with other entries with the same thread_name.
 
 ## Commands
 
@@ -29,10 +30,8 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 
 ## Markup
 
-- `{{image.jpg}}`, will append an image to a post.
 - `{*bold*}`, will make text bold.
 - `{_bold_}`, will make text underline.
-- `{url|google.com}`, will make an url.
 
 ## TODO
 
