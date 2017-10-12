@@ -2,13 +2,34 @@
 
 This is an all inclusive Rotonde instance client and server.
  
-
-
 ## Setup
 
-Download [Beaker](http://beakerbrowser.com), open it and navigato to **any Rotonde profile**, click the dropdown icon in the url and "Fork this site". Press `ctrl shift del`, to reset your portal details. Done!
+- Download [Beaker](http://beakerbrowser.com).
+- Click the top-right dropdown, **create a new site**.
+- Clone this repo, and change the site folder to it.
+- Edit the dat.json file and put in your newly created site's url.
+- Press `ctrl shift del` to clear out my own data. Refresh.
+- You should see a blank feed, with a blank profile.
 
-To ensure that your feed stays up even if your computer is up you can create an account on hashbase, see the instructions on how to do that here (under the hashbase part, obv) https://github.com/Rotonde/client-electron#currently-osx--linux If you create your rotonde site through forking another's, don't forget to clear out the portal.json file(or press `ctrl shift backspace`)!
+## Hashbase
+
+Since we're basically just testing, messing around for now. Here's how we'll accelerate the propagation. 
+
+- Create yourself an [Hashbase](https://hashbase.io) account.
+- Click **Upload archive**.
+- In your Beaker Site's library, find your portal.json file url.
+
+```dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/portal.json``` 
+
+- Paste this in the Hashbase URL field.
+- Set the name to rotonde, click **add**.
+
+## Rotonde
+
+- Give yourself a username with `edit:name Some_name`.
+- Give yourself a description with `edit:desc Some description`.
+- Write a first message maybe.
+- Paste someone else's dat: to see them. Enjoy!
 
 ## Icon
 

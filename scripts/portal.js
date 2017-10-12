@@ -51,6 +51,7 @@ function Portal(data)
   {
     var archive = new DatArchive(window.location.toString())
     await archive.writeFile('/portal.json', JSON.stringify(this.data));
+    await archive.commit();
     r.feed.update();
     this.update();
   }
