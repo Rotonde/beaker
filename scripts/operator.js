@@ -94,5 +94,11 @@ function Operator()
     if(e.key == "Enter"){
       r.operator.validate();
     }
+
+    if((e.key == "Backspace" || e.key == "Delete") && (e.ctrlKey || e.metaKey) && e.shiftKey){
+      e.preventDefault();
+      r.reset();
+      return;
+    }
   }
 }

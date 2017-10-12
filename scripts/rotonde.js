@@ -22,9 +22,11 @@ function Rotonde()
 
   this.load_account = async function()
   {
-    var archive = new DatArchive(window.location.toString())
-    var portal_data = await archive.readFile('/portal.json');
-    portal_data.dat = window.location.toString();
+    var dat = window.location.toString();
+    var archive = new DatArchive(dat)
+    var portal_str = await archive.readFile('/portal.json');
+    var portal_data = JSON.parse(portal_str);
+    portal_data.dat = dat;
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
   }
@@ -40,6 +42,13 @@ function Rotonde()
     if(!e.target.getAttribute("data-operation")){ return; }
 
     r.operator.inject(e.target.getAttribute("data-operation"));
+  }
+
+  this.reset = function()
+  {
+    this.portal.data = {name:"new_name",desc:"new_desc",port:[],feed:[]};
+    this.portal.save();
+    console.log(this.portal.data)
   }
 }
 

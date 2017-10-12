@@ -1,6 +1,8 @@
 function Portal(data)
 {
-  this.data = JSON.parse(data);
+  this.data = data;
+
+  console.log(data)
   this.archive = new DatArchive(this.data.dat);
   
   this.el = document.createElement('div'); this.el.id = "portal";
