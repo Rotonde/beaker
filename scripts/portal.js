@@ -19,7 +19,7 @@ function Portal(data)
     this.data.dat = window.location.toString();
 
     el.appendChild(this.el);
-    this.icon_el.innerHTML = "<img src='/media/images/icon.svg'/>";
+    this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
     this.name_el.innerHTML = "@"+this.data.name;
     this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
@@ -29,6 +29,9 @@ function Portal(data)
 
   this.update = function()
   {
+    this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
+    this.name_el.innerHTML = "@"+this.data.name;
+    this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
     this.feed_el.innerHTML = this.data.feed.length+" entries";    
   }

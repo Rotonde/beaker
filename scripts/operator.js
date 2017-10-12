@@ -57,9 +57,18 @@ function Operator()
 
   this.commands.edit = function(p,option)
   {
-    r.portal.data.feed[option].message = p;
-    r.portal.data.feed[option].editstamp = Date.now();
+    if(option == "name"){
+      r.portal.data.name = p;
+    }
+    else if(option == "desc"){
+      r.portal.data.desc = p;
+    }
+    else{
+      r.portal.data.feed[option].message = p;
+      r.portal.data.feed[option].editstamp = Date.now();      
+    }
     r.portal.save();
+    r.portal.update();
     r.feed.update();
   }
 

@@ -17,11 +17,10 @@ function Entry(data)
   { 
     var html = "";
 
-    html += "<img class='icon' src='"+this.dat+"/media/images/icon.svg'>";
+    html += "<img class='icon' src='"+this.dat+"/media/content/icon.svg'>";
     html += "<t class='message'>"+this.message+"</t><br/>";
     
     if(this.media){
-      console.log(this.media)
       html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>"
     }
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
