@@ -1,14 +1,18 @@
 # Rotonde for Beaker Browser
 
 This is an all inclusive Rotonde instance client and server.
+ 
+
 
 ## Setup
 
 Download [Beaker](http://beakerbrowser.com), open it and navigato to **any Rotonde profile**, click the dropdown icon in the url and "Fork this site". Press `ctrl shift del`, to reset your portal details. Done!
 
+To ensure that your feed stays up even if your computer is up you can create an account on hashbase, see the instructions on how to do that here (under the hashbase part, obv) https://github.com/Rotonde/client-electron#currently-osx--linux If you create your rotonde site through forking another's, don't forget to clear out the portal.json file(or press `ctrl shift backspace`)!
+
 ## Icon
 
-To change your display icon, update the SVG file located at `media/images/icon.svg`. The icon should be a square file for it to display properly. Keep it small.
+To change your display icon, update the SVG file located at `media/images/icon.svg`. The icon should be a square file for it to display properly. Keep it small. If you update your svg manually, don't forget to go to Library->(Your Rotonde Site) and press Review Changes -> Publish, otherwise your changes wont be seen by anyone!
 
 ## Rich content
 
