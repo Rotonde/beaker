@@ -9,7 +9,7 @@ body #portal .desc { margin-bottom:15px; }
 body #portal .port { text-decoration: underline; margin-right:15px; }
 body #portal .feed { text-decoration: underline; }
 
-body #feed { padding:30px; float:left; width:calc(100vw - 500px); min-width: 300px }
+body #feed { padding:30px; float:left; width:calc(100vw - 420px); min-width: 300px }
 body #feed .entry { border-bottom:1px solid #ddd; padding:5px 0px; }
 body #feed .entry .portal { font-family: 'input_mono_medium'; margin-right:15px; }
 body #feed .entry .timestamp { float:right; color:#aaa; }

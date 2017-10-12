@@ -9,19 +9,12 @@ function Feed(feed_urls)
     this.update();
   }
 
-  this.update = function()
+  this.update = async function()
   {
-    var html = "";
-
-    var entries = this.get_entries();
-
-    for(id in entries){
-      html += new Entry(entries[id]).to_html();
-    }
-    this.el.innerHTML = html;
+    this.get_entries();
   }
 
-  this.get_entries = function()
+  this.get_entries = async function()
   {
     var entries = [];
 
@@ -31,12 +24,35 @@ function Feed(feed_urls)
       entries.push(entry);
     }
 
+    // Remote
+    for(id in r.portal.data.port){
+      var portal_url = r.portal.data.port[id];
+      var archive = new DatArchive(portal_url)
+      var portal_data = await archive.readFile('portal.json');
+      var portal = JSON.parse(portal_data);
+      for(entry_id in portal.feed){
+        var entry_data = portal.feed[entry_id];
+        entry_data.portal = portal.name;
+        entries.push(new Entry(entry_data))
+      }
+    }
+
     // Sort
 
     var sorted_entries = entries.sort(function(a,b){
        return a.timestamp < b.timestamp ? -1 : 1;
     });
 
-    return sorted_entries.reverse();
+    this.refresh(sorted_entries.reverse());
+  }
+
+  this.refresh = function(entries)
+  {
+    var html = "";
+
+    for(id in entries){
+      html += new Entry(entries[id]).to_html();
+    }
+    this.el.innerHTML = html;
   }
 }
