@@ -40,6 +40,7 @@ function Feed(feed_urls)
         var entry_data = portal.feed[entry_id];
         entry_data.portal = portal.name;
         entry_data.dat = archive.url;
+        entry_data.id = entry_id;
         entries.push(new Entry(entry_data))
       }
     }

@@ -8,7 +8,7 @@ This is an all inclusive Rotonde instance client and server.
 - Click the top-right dropdown, **create a new site**.
 - Clone this repo, and in beaker's top-right dropdown, change the site folder to it.
 - Open the dat.json file and put in your newly created site's url(accessible by pressing the icon next to the site name).
-- Press `ctrl shift del` to clear out my own data. Refresh.
+- Select the input field, and press `ctrl shift del` to clear out my own data. Refresh.
 - You should now see a blank feed, with a blank profile.
 
 ## Hashbase
