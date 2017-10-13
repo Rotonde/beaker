@@ -1,28 +1,10 @@
 # Rotonde for Beaker Browser
 
 This is an all inclusive Rotonde instance client and server.
- 
+
 ## Setup
 
-- Download [Beaker](http://beakerbrowser.com).
-- Click the top-right dropdown, **New Site**.
-- Clone this repo, and in the top-right dropdown of your new page, change the site folder to it.
-- Open the dat.json file externally and put in your newly created site's url(accessible by pressing the icon next to the site name).
-- Select the input field of the created page and press `ctrl shift del` to clear out my own data. **Refresh**.
-- You should now see a blank feed, with a blank profile.
-
-## Hashbase
-
-Since we're basically just testing, messing around for now. Here's how we'll accelerate the propagation. This step will create an automated peer that will mirror your site.
-
-- Create yourself an [Hashbase](https://hashbase.io) account.
-- Click **Upload archive**.
-- In your Beaker Site's library, find your portal.json file url. It should look something like this. *Don't use the one I've written here, use your own*.
-
-```dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/portal.json``` 
-
-- Paste this in the Hashbase URL field.
-- Set the name to rotonde, click **Add**.
+There is a beginner-friendly setup tutorial available at the following URL: [https://louis.center/p2p-social-networking/](https://louis.center/p2p-social-networking/)
 
 ## Rotonde
 
@@ -58,5 +40,3 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 ### Onboarding
 
 - **Fork Site**, would fork the site but using a custom empty portal.json file for the user to fill. Would have an option to propagate/mirror through hashbase automatically, so the user's feed is available instantly.
-
-
