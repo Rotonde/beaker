@@ -22,9 +22,26 @@ function Rotonde()
   this.load_account = async function()
   {
     var dat = window.location.toString();
-    var archive = new DatArchive(dat)
-    var portal_str = await archive.readFile('/portal.json');
-    var portal_data = JSON.parse(portal_str);
+    var archive = new DatArchive(dat);
+    var portal_data;
+    try {
+      var portal_str = await archive.readFile('/portal.json');
+      portal_data = JSON.parse(portal_str);
+    } catch (err) {
+      // If there is no portal.json update it with the defaults
+      portal_data = {
+        name: "new_name",
+        desc: "new_desc",
+        port: [
+          // @neauoire
+          "dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/"
+        ],
+        feed: [],
+        site: "",
+        dat: ""
+      };
+      await archive.writeFile('/portal.json', JSON.stringify(portal_data, null, 2));
+    }
     portal_data.dat = dat;
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
