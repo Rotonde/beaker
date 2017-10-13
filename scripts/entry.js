@@ -40,9 +40,20 @@ function Entry(data)
   {
     var m = message;
 
+    m = this.escape_html(m);
     m = this.format_links(m);
 
     return m.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>");
+  }
+
+  this.escape_html = function(m)
+  {
+    return m
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
   this.format_links = function(m)
