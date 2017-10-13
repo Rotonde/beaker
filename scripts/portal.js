@@ -36,8 +36,8 @@ function Portal(data)
     this.name_el.innerHTML = "@"+this.data.name;
     this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
-    this.feed_el.innerHTML = this.data.feed.length+" entries";
-    this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />"+this.data.feed.length+" entries" : "";
+    this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />" : "";
+    this.feed_el.innerHTML += this.data.feed.length + " " + (this.data.feed.length == 1 ? "entry" : "entries");
 
     this.name_el.setAttribute("data-operation","edit:name "+this.data.name);
     this.desc_el.setAttribute("data-operation","edit:desc "+this.data.desc);
