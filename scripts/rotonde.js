@@ -28,6 +28,12 @@ function Rotonde()
     portal_data.dat = dat;
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
+
+    var archive = new DatArchive(window.location.toString());
+    var is_owner = await archive.getInfo();
+    if(!is_owner.isOwner){
+      this.operator.el.style.display = "none";
+    }
   }
 
   this.load_feed = async function(feed)

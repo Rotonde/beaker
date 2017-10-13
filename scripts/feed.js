@@ -69,9 +69,12 @@ function Feed(feed_urls)
   {
     var html = "";
 
+    var c = 0;
     for(id in entries){
       var entry = entries[id];
       html += entry.to_html();
+      if(c > 25){ break; }
+      c += 1;
     }
     this.el.innerHTML = html;
   }
