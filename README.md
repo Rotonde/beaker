@@ -6,6 +6,8 @@ This is an all inclusive Rotonde instance client and server.
 
 There is a beginner-friendly setup tutorial available at the following URL: [https://louis.center/p2p-social-networking/](https://louis.center/p2p-social-networking/)
 
+![Rotonde Beaker gif](https://louis.center/p2p-social-networking/new-post.gif)
+
 ## Rotonde
 
 - Give yourself a username with `edit:name Some_name`.
