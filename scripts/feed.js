@@ -56,8 +56,6 @@ function Feed(feed_urls)
       }
     }
 
-    r.portal.port_el.innerHTML = portal_summary;
-
     // Sort
 
     var sorted_entries = entries.sort(function(a,b){

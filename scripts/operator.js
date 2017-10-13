@@ -78,8 +78,17 @@ function Operator()
   this.commands.dat = function(p,option)
   {
     var path = "dat:"+option;
-    r.portal.data.port.push(path)
+    if(r.portal.data.dat == path){ return; }
 
+    // Remove
+    if(r.portal.data.port.indexOf(path) > -1){
+      r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
+    }
+    // Add
+    else{
+      r.portal.data.port.push(path);
+    }
+    
     r.portal.save();
     r.portal.update();
     r.feed.update();
