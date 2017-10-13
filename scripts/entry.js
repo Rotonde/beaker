@@ -30,7 +30,7 @@ function Entry(data)
       html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message+"'>"+timeSince(this.timestamp)+" ago</c>";
     }
     else{
-      html += this.editstamp ? "<c class='editstamp'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp'>"+timeSince(this.timestamp)+" ago</c>";  
+      html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal+" '>"+timeSince(this.timestamp)+" ago</c>";  
     }
     
     return "<div class='entry'>"+html+"<hr/></div>";
