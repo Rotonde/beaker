@@ -22,15 +22,9 @@ function Portal(data)
   this.install = function(el)
   {
     this.data.dat = window.location.toString();
-
     el.appendChild(this.el);
     this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
-    this.name_el.innerHTML = "@"+this.data.name;
-    this.desc_el.innerHTML = this.data.desc;
-    this.site_el.innerHTML = this.data.site;
-    this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />"+this.data.feed.length+" entries" : "";
-
-    document.title = "@"+this.data.name;
+    this.update();
     r.load_feed(this.data.port);
   }
 
@@ -41,6 +35,13 @@ function Portal(data)
     this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
     this.feed_el.innerHTML = this.data.feed.length+" entries";    
+    this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />"+this.data.feed.length+" entries" : "";
+
+    this.name_el.setAttribute("data-operation","edit:name "+this.data.name);
+    this.desc_el.setAttribute("data-operation","edit:desc "+this.data.desc);
+    this.site_el.setAttribute("data-operation","edit:site "+this.data.site);
+
+    document.title = "@"+this.data.name;
   }
 
   this.add_entry = function(entry)
