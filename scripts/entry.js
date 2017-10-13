@@ -18,15 +18,20 @@ function Entry(data)
     var html = "";
 
     html += "<img class='icon' src='"+this.dat+"/media/content/icon.svg'>";
-    html += "<t class='message'>"+this.message+"</t><br/>";
+    html += "<t class='message'>"+(this.message.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>"))+"</t><br/>";
     
     if(this.media){
       html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>"
     }
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
-    html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" '>"+timeSince(this.timestamp)+" ago</c>";
 
-
+    if(this.portal == r.portal.data.name){
+      html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" '>"+timeSince(this.timestamp)+" ago</c>";
+    }
+    else{
+      html += this.editstamp ? "<c class='editstamp'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp'>"+timeSince(this.timestamp)+" ago</c>";  
+    }
+    
     return "<div class='entry'>"+html+"<hr/></div>";
   }
 }
