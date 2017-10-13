@@ -4,6 +4,7 @@ function Feed(feed_urls)
   this.el = document.createElement('div'); this.el.id = "feed";
 
   this.archives = [];
+  this.portals = {};
 
   this.install = function(el)
   {
@@ -46,6 +47,7 @@ function Feed(feed_urls)
         console.warn(`Unable to fetch, this feed appears to be offline: ${archive.url}`);
       }
       var portal = JSON.parse(portal_data);
+      this.portals[portal.name] = archive.url;
 
       for(entry_id in portal.feed){
         var entry_data = portal.feed[entry_id];

@@ -51,8 +51,12 @@ function Operator()
     if(media){
       data.media = media;
     }
-    var entry = new Entry(data);
-    r.portal.add_entry(entry);
+    if(message.indexOf("@") == 0){
+      var name = message.split(" ")[0].replace("@","").trim();
+      data.target = r.feed.portals[name];
+      console.log(data)
+    }
+    r.portal.add_entry(new Entry(data));
   }
 
   this.commands.edit = function(p,option)
