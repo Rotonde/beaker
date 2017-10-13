@@ -39,7 +39,12 @@ function Feed(feed_urls)
 
     for(id in this.archives){
       var archive = this.archives[id];
-      var portal_data = await archive.readFile('portal.json');
+      var portal_data;
+      try {
+        portal_data = await archive.readFile('portal.json');
+      } catch (e) {
+        console.warn(`Unable to fetch, this feed appears to be offline: ${archive.url}`);
+      }
       var portal = JSON.parse(portal_data);
 
       for(entry_id in portal.feed){
