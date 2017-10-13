@@ -38,7 +38,6 @@ function Rotonde()
 
   this.mouse_down = function(e)
   {
-    console.log(e.target)
     if(!e.target.getAttribute("data-operation")){ return; }
 
     r.operator.inject(e.target.getAttribute("data-operation"));

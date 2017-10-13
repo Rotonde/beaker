@@ -63,6 +63,9 @@ function Operator()
     else if(option == "desc"){
       r.portal.data.desc = p;
     }
+    else if(option == "site"){
+      r.portal.data.site = p;
+    }
     else{
       r.portal.data.feed[option].message = p;
       r.portal.data.feed[option].editstamp = Date.now();      

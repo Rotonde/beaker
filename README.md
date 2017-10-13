@@ -46,6 +46,7 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 - `remove://`, to unsubscribe to a portal.
 - `edit:name TEXT`, to update your portal name.
 - `edit:desc TEXT`, to update your portal description.
+- `edit:site URL`, to update your portal website.
 - `edit:ENTRY_ID TEXT`, to edit an entry.
 
 ## Shortcuts

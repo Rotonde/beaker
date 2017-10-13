@@ -34,6 +34,11 @@ function Entry(data)
     
     return "<div class='entry'>"+html+"<hr/></div>";
   }
+
+  this.time_ago = function()
+  {
+    return timeSince(this.timestamp);
+  }
 }
 
 function timeSince(date)
@@ -60,5 +65,5 @@ function timeSince(date)
   if (interval > 1) {
     return interval + " minutes";
   }
-  return "a few seconds";
+  return "seconds";
 }

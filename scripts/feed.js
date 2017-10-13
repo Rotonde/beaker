@@ -8,14 +8,11 @@ function Feed(feed_urls)
   this.install = function(el)
   {
     el.appendChild(this.el);
-    this.el.innerHTML = "Feed:";
+
+    this.el.innerHTML = "Fetching "+this.feed_urls.length+" feeds..";
 
     for(id in this.feed_urls){
-      var archive = new DatArchive(this.feed_urls[id])
-      // var fileEvents = archive.createFileActivityStream()
-      // fileEvents.addEventListener('changed', e => {
-      //   console.log(e.path, 'changed')
-      // })
+      var archive = new DatArchive(this.feed_urls[id]);
       this.archives.push(archive);
     }
     this.archives.push(r.portal.archive);
@@ -32,10 +29,13 @@ function Feed(feed_urls)
   {
     var entries = [];
 
+    var portal_summary = "";
+
     for(id in this.archives){
       var archive = this.archives[id];
       var portal_data = await archive.readFile('portal.json');
       var portal = JSON.parse(portal_data);
+
       for(entry_id in portal.feed){
         var entry_data = portal.feed[entry_id];
         entry_data.portal = portal.name;
@@ -44,6 +44,8 @@ function Feed(feed_urls)
         entries.push(new Entry(entry_data))
       }
     }
+
+    r.portal.port_el.innerHTML = portal_summary;
 
     // Sort
 
