@@ -14,11 +14,17 @@ function Feed(feed_urls)
 
     for(id in this.feed_urls){
       var archive = new DatArchive(this.feed_urls[id]);
-      var fileEvents = archive.createFileActivityStream()
+      try {
+        fileEvents = archive.createFileActivityStream();
+      } catch (err) {
+        console.warn(err);
+        continue;
+      }
+
       fileEvents.addEventListener('changed', e => {
         console.log("Automated update")
         r.feed.update();
-      })
+      });
       this.archives.push(archive);
     }
 
@@ -32,39 +38,53 @@ function Feed(feed_urls)
     this.get_entries();
   }
 
-  this.get_entries = async function()
+  this.get_entries = function()
   {
     var entries = [];
+    var online_ports_count = 0;
 
-    var portal_summary = "";
+    var archive_promises = this.archives.map((archive) => (
+      this.get_feed(archive)
+        .then((feed_entries) => {
+          online_ports_count += 1;
+          r.portal.port_status_el.innerHTML = (online_ports_count - 1)+" online";
 
-    for(id in this.archives){
-      var archive = this.archives[id];
-      var portal_data;
-      try {
-        portal_data = await archive.readFile('portal.json');
-      } catch (e) {
-        console.warn(`Unable to fetch, this feed appears to be offline: ${archive.url}`);
-      }
-      var portal = JSON.parse(portal_data);
-      this.portals[portal.name] = archive.url;
+          entries = entries.concat(feed_entries);
 
-      for(entry_id in portal.feed){
-        var entry_data = portal.feed[entry_id];
-        entry_data.portal = portal.name;
-        entry_data.dat = archive.url;
-        entry_data.id = entry_id;
-        entries.push(new Entry(entry_data))
-      }
-    }
+          // Sort
+          var sorted_entries = entries.sort(function(a,b){
+            return a.timestamp < b.timestamp ? -1 : 1;
+          });
 
-    // Sort
+          this.refresh(sorted_entries.reverse());
+        })
+        .catch((e) => {
+          console.warn(e);
+          console.warn(`Unable to fetch, this feed appears to be offline: ${archive.url}`);
+        })
+    ));
 
-    var sorted_entries = entries.sort(function(a,b){
-       return a.timestamp < b.timestamp ? -1 : 1;
+    Promise.all(archive_promises).then(() => {
+      // Finished attempting to load all ports, maybe do something here?
     });
+  }
 
-    this.refresh(sorted_entries.reverse());
+  this.get_feed = function(archive)
+  {
+    return archive.readFile('portal.json')
+      .then((portal_data) => {
+        var portal = JSON.parse(portal_data);
+        this.portals[portal.name] = archive.url;
+
+        return portal.feed
+          .map((entry, entry_id) => new Entry(
+            Object.assign({}, entry, {
+              portal: portal.name,
+              dat: archive.url,
+              id: entry_id,
+            })
+          ))
+      });
   }
 
   this.refresh = function(entries)
@@ -74,6 +94,11 @@ function Feed(feed_urls)
     var c = 0;
     for(id in entries){
       var entry = entries[id];
+      if (!entry) {
+        // TODO: Sometimes creating an entry fails and returns `undefined`,
+        // for now filter those ones out.
+        continue;
+      }
       html += entry.to_html();
       if(c > 25){ break; }
       c += 1;
