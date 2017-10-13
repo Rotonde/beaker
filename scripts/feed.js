@@ -13,8 +13,14 @@ function Feed(feed_urls)
 
     for(id in this.feed_urls){
       var archive = new DatArchive(this.feed_urls[id]);
+      var fileEvents = archive.createFileActivityStream()
+      fileEvents.addEventListener('changed', e => {
+        console.log("Automated update")
+        r.feed.update();
+      })
       this.archives.push(archive);
     }
+
     this.archives.push(r.portal.archive);
 
     this.update();
