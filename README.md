@@ -5,10 +5,10 @@ This is an all inclusive Rotonde instance client and server.
 ## Setup
 
 - Download [Beaker](http://beakerbrowser.com).
-- Click the top-right dropdown, **create a new site**.
+- Click the top-right dropdown, **New Site**.
 - Clone this repo, and in beaker's top-right dropdown, change the site folder to it.
 - Open the dat.json file and put in your newly created site's url(accessible by pressing the icon next to the site name).
-- Select the input field, and press `ctrl shift del` to clear out my own data. Refresh.
+- Select the input field, and press `ctrl shift del` to clear out my own data. **Refresh**.
 - You should now see a blank feed, with a blank profile.
 
 ## Hashbase
@@ -17,19 +17,20 @@ Since we're basically just testing, messing around for now. Here's how we'll acc
 
 - Create yourself an [Hashbase](https://hashbase.io) account.
 - Click **Upload archive**.
-- In your Beaker Site's library, find your portal.json file url.
+- In your Beaker Site's library, find your portal.json file url. It should look something like this. *Don't use the one I've written here, use your own*.
 
 ```dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/portal.json``` 
 
 - Paste this in the Hashbase URL field.
-- Set the name to rotonde, click **add**.
+- Set the name to rotonde, click **Add**.
 
 ## Rotonde
 
 - Give yourself a username with `edit:name Some_name`.
 - Give yourself a description with `edit:desc Some description`.
 - Write a first message maybe.
-- Paste someone else's dat: to see them. Enjoy!
+- Share your `dat:` url with people, and past theirs to follow them.
+- Enjoy!
 
 ## Icon
 
