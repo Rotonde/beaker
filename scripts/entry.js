@@ -26,7 +26,7 @@ function Entry(data)
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a></t>";
 
     if(this.portal == r.portal.data.name){
-      html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" '>"+timeSince(this.timestamp)+" ago</c>";
+      html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message+"'>"+timeSince(this.timestamp)+" ago</c>";
     }
     else{
       html += this.editstamp ? "<c class='editstamp'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp'>"+timeSince(this.timestamp)+" ago</c>";  
