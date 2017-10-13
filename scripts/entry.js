@@ -18,7 +18,7 @@ function Entry(data)
     var html = "";
 
     html += "<img class='icon' src='"+this.dat+"/media/content/icon.svg'>";
-    html += "<t class='message'>"+(this.message.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>"))+"</t><br/>";
+    html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
     
     if(this.media){
       html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>"
@@ -33,6 +33,32 @@ function Entry(data)
     }
     
     return "<div class='entry'>"+html+"<hr/></div>";
+  }
+
+  this.formatter = function(message)
+  {
+    var m = message;
+
+    m = this.format_links(m);
+
+    return m.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>");
+  }
+
+  this.format_links = function(m)
+  {
+    var words = m.split(" ");
+    var n = [];
+    for(id in words){
+      var word = words[id];
+      if(word.substr(0,6) == "dat://"){
+        var compressed = word.substr(0,12)+".."+word.substr(word.length-3,2);
+        n.push("<a href='"+word+"'>"+compressed+"</a>");
+      }
+      else{
+        n.push(word)
+      }
+    }
+    return n.join(" ").trim();
   }
 
   this.time_ago = function()
