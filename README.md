@@ -6,6 +6,10 @@ This is an all inclusive Rotonde instance client and server.
 
 There is a beginner-friendly setup tutorial available at the following URL: [https://louis.center/p2p-social-networking/](https://louis.center/p2p-social-networking/)
 
+
+See this list for rotonde portals to follow: [https://cblgh.org/rotonde.html](https://cblgh.org/rotonde.html)
+
+
 ![Rotonde Beaker gif](https://louis.center/p2p-social-networking/new-post.gif)
 
 ## Rotonde
