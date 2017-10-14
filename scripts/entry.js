@@ -15,25 +15,25 @@ function Entry(data)
   }
 
   this.to_html = function()
-  { 
+  {
     var html = "";
 
-    html += "<a href='"+this.dat+"'><img class='icon' src='"+this.dat+"/media/content/icon.svg'></a>";    
+    html += "<a href='"+this.dat+"'><img class='icon' src='"+this.dat+"/media/content/icon.svg'></a>";
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
-  
+
     if(this.portal == r.portal.data.name){
       html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message+"'>"+timeSince(this.timestamp)+" ago</c>";
     }
     else{
-      html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal+" '>"+timeSince(this.timestamp)+" ago</c>";  
+      html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal+" '>"+timeSince(this.timestamp)+" ago</c>";
     }
     html += "<hr />"
     html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
-  
+
     if(this.media){
       html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>"
     }
-  
+
     return "<div class='entry'>"+html+"<hr/></div>";
   }
 
@@ -108,20 +108,24 @@ function timeSince(date)
   var seconds = Math.floor((new Date() - date) / 1000);
   var interval = Math.floor(seconds / 31536000);
 
-  if (interval > 1) {
-    return interval + " years";
+  if (interval >= 1) {
+    var years = interval == 1 ? " year" : " years"
+    return interval + years;
   }
   interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
-    return interval + " months";
+  if (interval >= 1) {
+    var months = interval == 1 ? " month" : " months"
+    return interval + months;
   }
   interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
-    return interval + " days";
+  if (interval >= 1) {
+    var days = interval == 1 ? " day" : " days"
+    return interval + days;
   }
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
-    return interval + " hours";
+  if (interval >= 1) {
+    var hours = interval == 1 ? " hour" : " hours"
+    return interval + hours;
   }
   interval = Math.floor(seconds / 60);
   if (interval > 1) {
