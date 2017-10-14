@@ -38,14 +38,16 @@ function Feed(feed_urls)
     this.get_entries();
   }
 
-  this.update_portals = async function()
+  this.update_portals_list = async function()
   {
     var html = "";
 
     var portals = r.feed.portals;
-
+    var archive = new DatArchive(window.location.toString());
+    var is_owner = await archive.getInfo();
+    
     for(name in portals){
-      html += "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>"
+      html += !is_owner.isOwner ? "<ln><a href='"+portals[name]+"'>"+name+"</a></ln>" : "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>" 
     }
     r.portal.port_list_el.innerHTML = "<list>"+html+"</list>";
   }
@@ -61,7 +63,7 @@ function Feed(feed_urls)
         .then((feed_entries) => {
           online_ports_count += 1;
           r.portal.port_status_el.innerHTML = (online_ports_count - 1)+" online";
-          r.feed.update_portals();
+          r.feed.update_portals_list();
           entries = entries.concat(feed_entries);
 
           // Sort
