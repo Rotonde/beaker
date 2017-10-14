@@ -111,24 +111,29 @@ function timeSince(date)
   var seconds = Math.floor((new Date() - date) / 1000);
   var interval = Math.floor(seconds / 31536000);
 
-  if (interval > 1) {
-    return interval + " years";
+  if (interval >= 1) {
+    var years = interval == 1 ? " year" : " years";
+    return interval + years;
   }
   interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
-    return interval + " months";
+  if (interval >= 1) {
+    var months = interval == 1 ? " month" : " months";
+    return interval + months;
   }
   interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
-    return interval + " days";
+  if (interval >= 1) {
+    var days = interval == 1 ? " day" : " days";
+    return interval + days;
   }
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
-    return interval + " hours";
+  if (interval >= 1) {
+    var hours = interval == 1 ? " hour" : " hours";
+    return interval + hours;
   }
   interval = Math.floor(seconds / 60);
   if (interval > 1) {
-    return interval + " minutes";
+    var minutes = interval == 1 ? " minute" : " minutes";
+    return interval + minutes;
   }
   return "seconds";
 }
