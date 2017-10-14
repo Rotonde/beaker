@@ -66,13 +66,7 @@ function Feed(feed_urls)
           r.portal.port_status_el.innerHTML = (online_ports_count - 1)+" online";
           r.feed.update_portals_list();
           entries = entries.concat(feed_entries);
-
-          // Sort
-          var sorted_entries = entries.sort(function(a,b){
-            return a.timestamp < b.timestamp ? -1 : 1;
-          });
-
-          this.refresh(sorted_entries.reverse());
+          this.debounced_sort_refresh(entries);
         })
         .catch((e) => {
           console.warn(e);
@@ -110,6 +104,15 @@ function Feed(feed_urls)
       });
   }
 
+  this.debounced_sort_refresh = debounce(function(entries) {
+    // Sort
+    var sorted_entries = entries.sort(function (a, b) {
+      return a.timestamp < b.timestamp ? -1 : 1;
+    });
+
+    this.refresh(sorted_entries.reverse());
+  }, 100, false);
+
   this.refresh = function(entries)
   {
     var html = "";
@@ -133,3 +136,20 @@ function Feed(feed_urls)
     this.el.innerHTML = html;
   }
 }
+
+// See https://davidwalsh.name/javascript-debounce-function
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			// if (!immediate) func.apply(context, args);
+			func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
