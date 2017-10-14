@@ -4,22 +4,25 @@ This is an all inclusive Rotonde instance client and server.
 
 ## Setup
 
-There is a beginner-friendly setup tutorial available at the following URL: [https://louis.center/p2p-social-networking/](https://louis.center/p2p-social-networking/)
+There is a beginner-friendly setup tutorial available at the following URL: [https://louis.center/p2p-social-networking/](https://louis.center/p2p-social-networking/). See this list for rotonde portals to follow: [https://cblgh.org/rotonde.html](https://cblgh.org/rotonde.html)
 
+## Start
 
-See this list for rotonde portals to follow: [https://cblgh.org/rotonde.html](https://cblgh.org/rotonde.html)
-
-
-![Rotonde Beaker gif](https://louis.center/p2p-social-networking/new-post.gif)
-
-## Rotonde
-
-- Give yourself a username with `edit:name Some_name`.
-- Give yourself a description with `edit:desc Some description`.
-- Give yourself a site with `edit:site Some description`.
 - Write a first message maybe.
 - Share your `dat:` url with people, and past theirs to follow them.
 - Enjoy!
+
+## Commands
+
+- `dat://000` will follow a portal.
+- `undat://000` will unfollow a portal.
+- `filter @neauoire` will show your mentions.
+- `clear_filter` will clear the filtered feed.
+- `edit:name Some_name` will change your display name.
+- `edit:desc Some_name` will change your display description.
+- `edit:site Some_name` will change your display site.
+- `edit:0` will edit your first entry.
+- `delete:0` will delete your first entry.
 
 ## Icon
 

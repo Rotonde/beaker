@@ -74,7 +74,7 @@ function Rotonde()
   this.mouse_down = function(e)
   {
     if(!e.target.getAttribute("data-operation")){ return; }
-
+    e.preventDefault();
     r.operator.inject(e.target.getAttribute("data-operation"));
   }
 

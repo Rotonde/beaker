@@ -39,36 +39,22 @@ function Feed(feed_urls)
     this.get_entries();
   }
 
-  this.update_portals_list = async function()
-  {
-    var html = "";
-
-    var portals = r.feed.portals;
-    var archive = new DatArchive(window.location.toString());
-    var is_owner = await archive.getInfo();
-
-    for(name in portals){
-      html += "<ln><a href='"+portals[name]+"'>"+name+"</a>"+(is_owner.isOwner ? "<t class='undat' data-operation='undat://"+portals[name].replace("dat://","")+"'>x</t>": '')+"</ln>"
-    }
-    r.portal.port_list_el.innerHTML = "<list>"+html+"</list>";
-  }
-
   this.get_entries = function()
   {
     var entries = [];
     var online_ports_count = 0;
-    var list_html = "";
+    r.portal.port_list_el.innerHTML = "";
 
     var archive_promises = this.archives.map((archive) => (
       this.get_feed(archive)
         .then((feed_entries) => {
+          r.portal.port_list_el.innerHTML += "<ln><a href='"+archive.url+"'>"+name_from_hash(archive.url)+"</a></ln>"
           online_ports_count += 1;
-          r.portal.port_status_el.innerHTML = (online_ports_count - 1)+" online";
-          r.feed.update_portals_list();
           entries = entries.concat(feed_entries);
           this.debounced_sort_refresh(entries);
         })
         .catch((e) => {
+          r.portal.port_list_el.innerHTML += "<ln style='color:red'><a href='"+archive.url+"'>"+name_from_hash(archive.url)+"</a></ln>"
           console.warn(e);
           console.warn(`Unable to fetch, this feed appears to be offline: ${archive.url}`);
         })
@@ -130,7 +116,7 @@ function Feed(feed_urls)
         continue;
       }
       html += entry.to_html();
-      if(c > 25){ break; }
+      if(c > 40){ break; }
       c += 1;
     }
     this.el.innerHTML = html;
@@ -153,3 +139,13 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args);
 	};
 };
+
+function name_from_hash(hash)
+{
+  for(name in r.feed.portals){
+    if(r.feed.portals[name] == hash){
+      return name;
+    }
+  }
+  return hash.substr(0,12)+".."+hash.substr(hash.length-3,2);
+}

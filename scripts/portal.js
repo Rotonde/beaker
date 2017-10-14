@@ -5,23 +5,30 @@ function Portal(data)
   this.archive = new DatArchive(this.data.dat);
 
   this.el = document.createElement('div'); this.el.id = "portal";
+
+  // Profile
+  this.profile_wr = document.createElement('div'); this.profile_wr.id = "profile";
   this.icon_el = document.createElement('div'); this.icon_el.className = "icon";
   this.name_el = document.createElement('t'); this.name_el.className = "name";
   this.desc_el = document.createElement('t'); this.desc_el.className = "desc";
-
   this.site_el = document.createElement('t'); this.site_el.className = "site";
-  this.port_el = document.createElement('t'); this.port_el.className = "port";
-  this.feed_el = document.createElement('t'); this.feed_el.className = "feed";
+  this.profile_wr.appendChild(this.icon_el);
+  this.profile_wr.appendChild(this.name_el);
+  this.profile_wr.appendChild(this.desc_el);
+  this.profile_wr.appendChild(this.site_el);
+  this.el.appendChild(this.profile_wr);
+
+  // Activity
+  this.activity_wr = document.createElement('div'); this.activity_wr.id = "activity";
+  this.entries_el = document.createElement('t'); this.entries_el.className = "entries";
+  this.portals_el = document.createElement('t'); this.portals_el.className = "portals";
+  this.activity_wr.appendChild(this.entries_el);
+  this.activity_wr.appendChild(this.portals_el);
+  this.el.appendChild(this.activity_wr);
+
   this.port_status_el = document.createElement('t'); this.port_status_el.className = "port_status";
   
   this.port_list_el = document.createElement('t'); this.port_list_el.className = "port_list";
-
-  this.el.appendChild(this.icon_el);
-  this.el.appendChild(this.name_el);
-  this.el.appendChild(this.desc_el);
-  this.el.appendChild(this.site_el);
-  this.el.appendChild(this.feed_el);
-  this.el.appendChild(this.port_el);
   this.el.appendChild(this.port_status_el);
   this.el.appendChild(this.port_list_el);
 
@@ -40,9 +47,9 @@ function Portal(data)
     this.name_el.innerHTML = "@"+this.data.name;
     this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site+"</a>";
     this.desc_el.innerHTML = this.data.desc;
-    this.port_el.innerHTML = this.data.port.length+" portals";
-    this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />" : "";
-    this.feed_el.innerHTML += this.data.feed.length + " " + (this.data.feed.length == 1 ? "entry" : "entries");
+
+    this.entries_el.innerHTML = this.data.feed.length + " <unit>" + (this.data.feed.length == 1 ? "Entry" : "Entries")+"</unit>";
+    this.portals_el.innerHTML = this.data.port.length+"<unit>Portals</unit>";
 
     this.name_el.setAttribute("data-operation","edit:name "+this.data.name);
     this.desc_el.setAttribute("data-operation","edit:desc "+this.data.desc);
