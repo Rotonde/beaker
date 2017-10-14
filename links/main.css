@@ -15,6 +15,8 @@ body #portal .port_list { display:block; }
 body #portal .port_list list { display:block; margin-top:15px; columns:2;}
 body #portal .port_list list ln { display: block; font-size:11px; line-height: 15px;  }
 body #portal .port_list list ln t:hover { text-decoration: underline; cursor: pointer; }
+body #portal .port_list list ln .undat { display:none;}
+body #portal .port_list list ln:hover .undat { display:inline-block; float:right; font-family: 'input_mono_medium'}
 
 body #feed { padding:0px 30px; width:calc(100vw - 420px); min-width: 300px; margin-left:240px; margin-top: 20px; max-width:500px;}
 body #feed .clear_filter:hover { cursor:pointer; text-decoration: underline; }

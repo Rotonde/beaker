@@ -48,7 +48,7 @@ function Feed(feed_urls)
     var is_owner = await archive.getInfo();
 
     for(name in portals){
-      html += !is_owner.isOwner ? "<ln><a href='"+portals[name]+"'>"+name+"</a></ln>" : "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>"
+      html += "<ln><a href='"+portals[name]+"'>"+name+"</a>"+(is_owner.isOwner ? "<t class='undat' data-operation='undat://"+portals[name].replace("dat://","")+"'>x</t>": '')+"</ln>"
     }
     r.portal.port_list_el.innerHTML = "<list>"+html+"</list>";
   }
