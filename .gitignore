@@ -1,2 +1,6 @@
 media/content
-!media/content/icon.svg
+.DS*
+*.sw[op]
+media/content/icon.svg
+dat.json
+portal.json
