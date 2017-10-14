@@ -30,7 +30,7 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 
 ## Rich content
 
-- `TEXT >> MEDIA_NAME`, will connect a media filename from `/media/content/MEDIA_NAME.jpg`.
+- `TEXT >> MEDIA_NAME.jpg`, will connect a media filename from `/media/content/MEDIA_NAME.jpg`.
 
 ## Commands
 

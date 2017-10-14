@@ -32,7 +32,7 @@ function Entry(data)
     html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
 
     if(this.media){
-      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>";
+      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+"'/>";
     }
     return "<div class='entry'>"+html+"<hr/></div>";
   }
@@ -108,10 +108,10 @@ function Entry(data)
   this.format_style = function(m)
   {
     if(m.indexOf("{*") > -1 && m.indexOf("*}") > -1){
-      m = m.replace('{*',"<b>").replace('*}',"</b>"); 
+      m = m.replace('{*',"<b>").replace('*}',"</b>");
     }
     if(m.indexOf("{_") > -1 && m.indexOf("_}") > -1){
-      m = m.replace('{_',"<i>").replace('_}',"</i>"); 
+      m = m.replace('{_',"<i>").replace('_}',"</i>");
     }
     return m
   }
