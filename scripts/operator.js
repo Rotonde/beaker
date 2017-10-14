@@ -2,14 +2,24 @@ function Operator()
 {
   this.el = document.createElement('div'); this.el.id = "operator";
   this.input_el = document.createElement('input'); this.input_el.id = "commander";
-  this.input_el.setAttribute("placeholder","Input command here")
+  this.input_el.setAttribute("placeholder","Input command here");
+  this.hint_el = document.createElement('t'); this.hint_el.id = "hint";
   this.el.appendChild(this.input_el);
+  this.el.appendChild(this.hint_el);
 
   this.install = function(el)
   {
     el.appendChild(this.el);
 
     this.input_el.addEventListener('keydown',r.operator.key_down, false);
+    this.update();
+  }
+
+  this.update = function()
+  {
+    var words = this.input_el.value.trim().split(" ").length;
+    var chars = this.input_el.value.trim().length;
+    this.hint_el.innerHTML = chars+"C "+words+"W";
   }
 
   this.validate = function()
@@ -54,7 +64,6 @@ function Operator()
     if(message.indexOf("@") == 0){
       var name = message.split(" ")[0].replace("@","").trim();
       data.target = r.feed.portals[name];
-      console.log(data)
     }
     r.portal.add_entry(new Entry(data));
   }
@@ -74,6 +83,9 @@ function Operator()
       r.portal.data.feed[option].message = p;
       r.portal.data.feed[option].editstamp = Date.now();      
     }
+
+    console.log(r.portal.data.site);
+    
     r.portal.save();
     r.portal.update();
     r.feed.update();
@@ -125,5 +137,6 @@ function Operator()
       r.reset();
       return;
     }
+    r.operator.update();
   }
 }

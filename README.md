@@ -16,6 +16,7 @@ See this list for rotonde portals to follow: [https://cblgh.org/rotonde.html](ht
 
 - Give yourself a username with `edit:name Some_name`.
 - Give yourself a description with `edit:desc Some description`.
+- Give yourself a site with `edit:site Some description`.
 - Write a first message maybe.
 - Share your `dat:` url with people, and past theirs to follow them.
 - Enjoy!
@@ -31,18 +32,8 @@ To change your display icon, update the SVG file located at `media/images/icon.s
 ## Commands
 
 - `dat://`, to subscribe to a portal.
+- `undat://`, to unsubscribe to a portal.
 - `edit:name TEXT`, to update your portal name.
 - `edit:desc TEXT`, to update your portal description.
 - `edit:site URL`, to update your portal website.
 - `edit:ENTRY_ID TEXT`, to edit an entry.
-
-## Markup
-
-- `{*bold*}`, will make text bold.
-- `{_bold_}`, will make text underline.
-
-## Ideal Flow
-
-### Onboarding
-
-- **Fork Site**, would fork the site but using a custom empty portal.json file for the user to fill. Would have an option to propagate/mirror through hashbase automatically, so the user's feed is available instantly.

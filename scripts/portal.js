@@ -8,11 +8,13 @@ function Portal(data)
   this.icon_el = document.createElement('div'); this.icon_el.className = "icon";
   this.name_el = document.createElement('t'); this.name_el.className = "name";
   this.desc_el = document.createElement('t'); this.desc_el.className = "desc";
+
   this.site_el = document.createElement('t'); this.site_el.className = "site";
   this.port_el = document.createElement('t'); this.port_el.className = "port";
-  this.port_status_el = document.createElement('t'); this.port_status_el.className = "port_status";
-  this.port_list_el = document.createElement('t'); this.port_list_el.className = "port_list";
   this.feed_el = document.createElement('t'); this.feed_el.className = "feed";
+  this.port_status_el = document.createElement('t'); this.port_status_el.className = "port_status";
+  
+  this.port_list_el = document.createElement('t'); this.port_list_el.className = "port_list";
 
   this.el.appendChild(this.icon_el);
   this.el.appendChild(this.name_el);
@@ -36,6 +38,7 @@ function Portal(data)
   {
     this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
     this.name_el.innerHTML = "@"+this.data.name;
+    this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site+"</a>";
     this.desc_el.innerHTML = this.data.desc;
     this.port_el.innerHTML = this.data.port.length+" portals";
     this.feed_el.innerHTML = this.data.feed.length > 0 ? new Entry(this.data.feed[this.data.feed.length-1]).time_ago()+" ago<br />" : "";

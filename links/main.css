@@ -7,25 +7,27 @@ body #portal .icon { margin-bottom: 30px }
 body #portal .icon img { width:100px; height: 100px; display:block; }
 body #portal .name { font-family: 'input_mono_medium'; display:block; }
 body #portal .desc { display:block; }
-body #portal .site { display:block; color:#999; }
-body #portal .port { text-decoration: underline; margin-right:15px; }
-body #portal .feed { display:block; margin-bottom:15px; }
+body #portal .site { display:block; color:#999; margin-bottom:20px; }
+body #portal .port { display: block }
+body #portal .feed { display:block; }
 body #portal .port_list list { display:block; margin-top:15px; columns:2;}
 body #portal .port_list list ln { display: block; font-size:11px; line-height: 15px;  }
 body #portal .port_list list ln t:hover { text-decoration: underline; cursor: pointer; }
 
 body #feed { padding:0px 30px; width:calc(100vw - 420px); min-width: 300px; margin-left:240px; margin-top: 20px; max-width:500px;}
 body #feed .entry { border-bottom: 1px solid #ddd;padding: 10px 0px;line-height: 20px;padding-left: 80px;position: relative;padding-bottom: 20px; }
+body #feed .entry:hover { background:#f4f4f4; }
 body #feed .entry .icon { width:60px; height:60px; display:block; float:left; margin-right:20px; position: absolute; left:0px;}
-body #feed .entry .message { margin-top:10px; }
+body #feed .entry .message { margin-top:5px; }
 body #feed .entry .message a { font-family: 'input_mono_medium' }
-body #feed .entry .message .highlight { background:#72dec2; }
-body #feed .entry .portal { font-family: 'input_mono_medium'; margin-right:15px; font-size:11px; }
+body #feed .entry .message .highlight { background: #000;padding: 0px 5px;color: #fff; }
+body #feed .entry .portal { font-family: 'input_mono_medium'; margin-right:15px; font-size:12px;  display:inline-block; margin-top:10px;}
 body #feed .entry .timestamp { color:#aaa; font-size:11px; margin-right:15px; }
 body #feed .entry .timestamp:hover { cursor:pointer; text-decoration: underline; }
 body #feed .entry .editstamp { color:#aaa; font-size:11px; }
 body #feed .entry .editstamp:hover { cursor:pointer; text-decoration: underline; }
 body #feed .entry .media { max-width: 500px; width:100%; margin-top:15px; display:block; margin-bottom:15px; border-radius:4px; }
 
-body #operator { background: #eee;width: calc(100vw - 420px);max-width: 500px;margin-left: 270px;margin-top: 40px;border-bottom: 1px solid #000;}
-body #operator input { display: block; padding:15px; background:transparent; color:black; width: calc(100% - 30px);}
+body #operator { background: #eee;width: calc(100vw - 420px);max-width: 500px;margin-left: 270px;margin-top: 40px;border-bottom: 1px solid #000; position: relative;}
+body #operator input { display: block; padding:15px; background:transparent; color:black; width: calc(100% - 105px);}
+body #operator #hint { position: absolute;top: 0px;right: 0px;padding: 15px;display: block; line-height: 14px; color:#aaa;}
