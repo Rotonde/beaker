@@ -22,12 +22,47 @@ function Rotonde()
   this.load_account = async function()
   {
     var dat = window.location.toString();
-    var archive = new DatArchive(dat)
-    var portal_str = await archive.readFile('/portal.json');
-    var portal_data = JSON.parse(portal_str);
+    var archive = new DatArchive(dat);
+    var portal_str;
+    var portal_data;
+
+    try {
+      portal_str = await archive.readFile('/portal.json');
+    } catch (err) {
+      // If the portal.json does not exist ignore the error as we will create
+      // it with defaults below.
+    }
+
+    if (!portal_str) {
+      portal_data = {
+        name: "new_name",
+        desc: "new_desc",
+        port: [
+          // @neauoire
+          "dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/"
+        ],
+        feed: [],
+        site: "",
+        dat: ""
+      };
+      await archive.writeFile('/portal.json', JSON.stringify(portal_data, null, 2));
+    } else {
+      try {
+        portal_data = JSON.parse(portal_str);
+      } catch (err) {
+        // TODO: handle invalid portal.json
+      }
+    }
+
     portal_data.dat = dat;
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
+
+    var archive = new DatArchive(window.location.toString());
+    var is_owner = await archive.getInfo();
+    if(!is_owner.isOwner){
+      this.operator.el.style.display = "none";
+    }
   }
 
   this.load_feed = async function(feed)
@@ -39,53 +74,14 @@ function Rotonde()
   this.mouse_down = function(e)
   {
     if(!e.target.getAttribute("data-operation")){ return; }
-
+    e.preventDefault();
     r.operator.inject(e.target.getAttribute("data-operation"));
   }
 
   this.reset = function()
   {
-    this.portal.data = {name:"new_name",desc:"new_desc",port:[],feed:[]};
+    this.portal.data = {name:"Newly Joined",desc:"Click on this text to edit your description.",site:"Anywhere",port:[],feed:[]};
     this.portal.save();
     console.log(this.portal.data)
   }
 }
-
-async function main()
-{
-  // create an archive instance for the current website
-  var archive = new DatArchive(window.location.toString())
-  var files = await archive.readdir('/')
-  console.log(files)
-  var files = await archive.readdir('/', {recursive: true})
-  console.log(files)
-  var indexJs = await archive.readFile('/scripts/index.js')
-  console.log(indexJs)
-  var beakerPng = await archive.readFile('/img/logo.png', 'base64')
-  var img = document.createElement('img')
-  img.src = 'data:image/png;base64,'+beakerPng
-  document.body.appendChild(img)
-  var indexJsStat = await archive.stat('/scripts/index.js')
-  console.log(indexJsStat)
-
-  await archive.writeFile('/hello.txt', 'world')
-  console.log('Wrote', archive.url + '/hello.txt')
-  // await archive.mkdir('/subdir'))
-
-  try {
-    var st = await archive.stat('/foo.txt')
-    // does exist
-  } catch (e) {
-    // does not exist
-  }
-
-  var fileEvents = archive.createFileActivityStream()
-  fileEvents.addEventListener('invalidated', e => {
-    console.log(e.path, 'invalidated')
-  })
-  fileEvents.addEventListener('changed', e => {
-    console.log(e.path, 'changed')
-  })
-}
-
-// main()

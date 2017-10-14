@@ -2,14 +2,25 @@ function Operator()
 {
   this.el = document.createElement('div'); this.el.id = "operator";
   this.input_el = document.createElement('input'); this.input_el.id = "commander";
-  this.input_el.setAttribute("placeholder","Input command here")
+  this.input_el.setAttribute("placeholder","Input command here");
+  this.hint_el = document.createElement('t'); this.hint_el.id = "hint";
   this.el.appendChild(this.input_el);
+  this.el.appendChild(this.hint_el);
 
   this.install = function(el)
   {
     el.appendChild(this.el);
 
     this.input_el.addEventListener('keydown',r.operator.key_down, false);
+    this.input_el.addEventListener('input',r.operator.input_changed, false);
+    this.update();
+  }
+
+  this.update = function()
+  {
+    var words = this.input_el.value.trim().split(" ").length;
+    var chars = this.input_el.value.trim().length;
+    this.hint_el.innerHTML = chars+"C "+words+"W";
   }
 
   this.validate = function()
@@ -19,14 +30,14 @@ function Operator()
 
     var option = command.indexOf(":") > -1 ? command.split(":")[1] : null;
     command = command.indexOf(":") > -1 ? command.split(":")[0] : command;
-    
+
     if(this.commands[command]){
-      this.commands[command](params,option);   
+      this.commands[command](params,option);
     }
     else{
       this.commands.say(this.input_el.value.trim());
     }
-    this.input_el.value = "";   
+    this.input_el.value = "";
   }
 
   this.inject = function(text)
@@ -51,8 +62,11 @@ function Operator()
     if(media){
       data.media = media;
     }
-    var entry = new Entry(data);
-    r.portal.add_entry(entry);
+    if(message.indexOf("@") == 0){
+      var name = message.split(" ")[0].replace("@","").trim();
+      data.target = r.feed.portals[name];
+    }
+    r.portal.add_entry(new Entry(data));
   }
 
   this.commands.edit = function(p,option)
@@ -68,7 +82,23 @@ function Operator()
     }
     else{
       r.portal.data.feed[option].message = p;
-      r.portal.data.feed[option].editstamp = Date.now();      
+      r.portal.data.feed[option].editstamp = Date.now();
+    }
+
+    console.log(r.portal.data.site);
+    
+    r.portal.save();
+    r.portal.update();
+    r.feed.update();
+  }
+
+  this.commands.undat = function(p,option)
+  {
+    var path = "dat://"+option;
+
+    // Remove
+    if(r.portal.data.port.indexOf(path) > -1){
+      r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
     }
     r.portal.save();
     r.portal.update();
@@ -78,7 +108,12 @@ function Operator()
   this.commands.dat = function(p,option)
   {
     var path = "dat:"+option;
-    r.portal.data.port.push(path)
+    if(r.portal.data.dat == path){ return; }
+
+    // Remove
+    if(r.portal.data.port.indexOf(path) == -1){
+      r.portal.data.port.push(path);
+    }
 
     r.portal.save();
     r.portal.update();
@@ -89,6 +124,21 @@ function Operator()
   {
     r.portal.data.feed.splice(option, 1)
     r.portal.save();
+    r.feed.update();
+  }
+
+  this.commands.filter = function(p) {
+    r.feed.filter = p;
+    r.feed.update();
+  }
+
+  this.commands.clear_filter = function() {
+    r.feed.filter = "";
+    r.feed.update();
+  }
+
+  this.commands.mentions = function() {
+    r.feed.filter = "@" + r.portal.data.name;
     r.feed.update();
   }
 
@@ -103,5 +153,11 @@ function Operator()
       r.reset();
       return;
     }
+    r.operator.update();
+  }
+
+  this.input_changed = function(e)
+  {
+    r.operator.update();
   }
 }
