@@ -23,7 +23,7 @@ function Entry(data)
     html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
 
     if(this.portal == r.portal.data.name){
-      html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message+"'>"+timeSince(this.timestamp)+" ago</c>";
+      html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message.replace("'","") : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message.replace("'","")+"'>"+timeSince(this.timestamp)+" ago</c>";
     }
     else{
       html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal+" '>"+timeSince(this.timestamp)+" ago</c>";
@@ -45,6 +45,7 @@ function Entry(data)
     m = this.format_links(m);
     m = this.highlight_portal(m);
     m = this.link_portals(m);
+    m = this.format_style(m);
 
     return m;
   }
@@ -103,6 +104,16 @@ function Entry(data)
       }
     }
     return n.join(" ").trim();
+  }
+  this.format_style = function(m)
+  {
+    if(m.indexOf("{*") > -1 && m.indexOf("*}") > -1){
+      m = m.replace('{*',"<b>").replace('*}',"</b>"); 
+    }
+    if(m.indexOf("{_") > -1 && m.indexOf("_}") > -1){
+      m = m.replace('{_',"<i>").replace('_}',"</i>"); 
+    }
+    return m
   }
 
   this.time_ago = function()
