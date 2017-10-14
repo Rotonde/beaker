@@ -10,6 +10,8 @@ body #portal .desc { display:block; }
 body #portal .site { display:block; color:#999; margin-bottom:20px; }
 body #portal .port { display: block }
 body #portal .feed { display:block; }
+body #portal .port_status { display:block; }
+body #portal .port_list { display:block; }
 body #portal .port_list list { display:block; margin-top:15px; columns:2;}
 body #portal .port_list list ln { display: block; font-size:11px; line-height: 15px;  }
 body #portal .port_list list ln t:hover { text-decoration: underline; cursor: pointer; }
