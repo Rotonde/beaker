@@ -23,12 +23,17 @@ function Rotonde()
   {
     var dat = window.location.toString();
     var archive = new DatArchive(dat);
+    var portal_str;
     var portal_data;
+
     try {
-      var portal_str = await archive.readFile('/portal.json');
-      portal_data = JSON.parse(portal_str);
+      portal_str = await archive.readFile('/portal.json');
     } catch (err) {
-      // If there is no portal.json update it with the defaults
+      // If the portal.json does not exist ignore the error as we will create
+      // it with defaults below.
+    }
+
+    if (!portal_str) {
       portal_data = {
         name: "new_name",
         desc: "new_desc",
@@ -41,7 +46,14 @@ function Rotonde()
         dat: ""
       };
       await archive.writeFile('/portal.json', JSON.stringify(portal_data, null, 2));
+    } else {
+      try {
+        portal_data = JSON.parse(portal_str);
+      } catch (err) {
+        // TODO: handle invalid portal.json
+      }
     }
+
     portal_data.dat = dat;
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
