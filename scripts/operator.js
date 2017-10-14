@@ -12,6 +12,7 @@ function Operator()
     el.appendChild(this.el);
 
     this.input_el.addEventListener('keydown',r.operator.key_down, false);
+    this.input_el.addEventListener('input',r.operator.input_changed, false);
     this.update();
   }
 
@@ -152,6 +153,11 @@ function Operator()
       r.reset();
       return;
     }
+    r.operator.update();
+  }
+
+  this.input_changed = function(e)
+  {
     r.operator.update();
   }
 }
