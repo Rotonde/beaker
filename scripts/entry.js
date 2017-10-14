@@ -43,8 +43,10 @@ function Entry(data)
 
     m = this.escape_html(m);
     m = this.format_links(m);
+    m = this.highlight_portal(m);
+    m = this.link_portals(m);
 
-    return m.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>");
+    return m;
   }
 
   this.escape_html = function(m)
@@ -66,6 +68,27 @@ function Entry(data)
       if(word.substr(0,6) == "dat://"){
         var compressed = word.substr(0,12)+".."+word.substr(word.length-3,2);
         n.push("<a href='"+word+"'>"+compressed+"</a>");
+      }
+      else{
+        n.push(word)
+      }
+    }
+    return n.join(" ").trim();
+  }
+
+  this.highlight_portal = function(m)
+  {
+    return m.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>")
+  }
+
+  this.link_portals = function(m)
+  {
+    var words = m.split(" ");
+    var n = [];
+    for(id in words){
+      var word = words[id];
+      if(word.substr(0,1) == "@" && r.feed.portals[word.substr(1,word.length-1)]){
+        n.push("<a href='"+r.feed.portals[word.substr(1,word.length-1)]+"' class='known_portal'>"+word+"</a>");
       }
       else{
         n.push(word)
