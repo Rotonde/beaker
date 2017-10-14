@@ -38,17 +38,30 @@ function Feed(feed_urls)
     this.get_entries();
   }
 
+  this.update_portals = async function()
+  {
+    var html = "";
+
+    var portals = r.feed.portals;
+
+    for(name in portals){
+      html += "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>"
+    }
+    r.portal.port_list_el.innerHTML = "<list>"+html+"</list>";
+  }
+
   this.get_entries = function()
   {
     var entries = [];
     var online_ports_count = 0;
+    var list_html = "";
 
     var archive_promises = this.archives.map((archive) => (
       this.get_feed(archive)
         .then((feed_entries) => {
           online_ports_count += 1;
           r.portal.port_status_el.innerHTML = (online_ports_count - 1)+" online";
-
+          r.feed.update_portals();
           entries = entries.concat(feed_entries);
 
           // Sort
@@ -65,7 +78,9 @@ function Feed(feed_urls)
     ));
 
     Promise.all(archive_promises).then(() => {
+
       // Finished attempting to load all ports, maybe do something here?
+      
     });
   }
 

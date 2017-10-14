@@ -10,6 +10,9 @@ body #portal .desc { display:block; }
 body #portal .site { display:block; color:#999; }
 body #portal .port { text-decoration: underline; margin-right:15px; }
 body #portal .feed { display:block; margin-bottom:15px; }
+body #portal .port_list list { display:block; margin-top:15px; columns:2;}
+body #portal .port_list list ln { display: block; font-size:11px; line-height: 15px;  }
+body #portal .port_list list ln t:hover { text-decoration: underline; cursor: pointer; }
 
 body #feed { padding:0px 30px; width:calc(100vw - 420px); min-width: 300px; margin-left:240px; margin-top: 20px; max-width:500px;}
 body #feed .entry { border-bottom: 1px solid #ddd;padding: 10px 0px;line-height: 20px;padding-left: 80px;position: relative;padding-bottom: 20px; }

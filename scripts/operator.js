@@ -79,20 +79,29 @@ function Operator()
     r.feed.update();
   }
 
+  this.commands.undat = function(p,option)
+  {
+    var path = "dat://"+option;
+
+    // Remove
+    if(r.portal.data.port.indexOf(path) > -1){
+      r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
+    }
+    r.portal.save();
+    r.portal.update();
+    r.feed.update();
+  }
+
   this.commands.dat = function(p,option)
   {
     var path = "dat:"+option;
     if(r.portal.data.dat == path){ return; }
 
     // Remove
-    if(r.portal.data.port.indexOf(path) > -1){
-      r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
-    }
-    // Add
-    else{
+    if(r.portal.data.port.indexOf(path) == -1){
       r.portal.data.port.push(path);
     }
-    
+
     r.portal.save();
     r.portal.update();
     r.feed.update();

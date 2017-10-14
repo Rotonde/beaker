@@ -11,6 +11,7 @@ function Portal(data)
   this.site_el = document.createElement('t'); this.site_el.className = "site";
   this.port_el = document.createElement('t'); this.port_el.className = "port";
   this.port_status_el = document.createElement('t'); this.port_status_el.className = "port_status";
+  this.port_list_el = document.createElement('t'); this.port_list_el.className = "port_list";
   this.feed_el = document.createElement('t'); this.feed_el.className = "feed";
 
   this.el.appendChild(this.icon_el);
@@ -20,6 +21,7 @@ function Portal(data)
   this.el.appendChild(this.feed_el);
   this.el.appendChild(this.port_el);
   this.el.appendChild(this.port_status_el);
+  this.el.appendChild(this.port_list_el);
 
   this.install = function(el)
   {
