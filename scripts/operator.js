@@ -29,14 +29,14 @@ function Operator()
 
     var option = command.indexOf(":") > -1 ? command.split(":")[1] : null;
     command = command.indexOf(":") > -1 ? command.split(":")[0] : command;
-    
+
     if(this.commands[command]){
-      this.commands[command](params,option);   
+      this.commands[command](params,option);
     }
     else{
       this.commands.say(this.input_el.value.trim());
     }
-    this.input_el.value = "";   
+    this.input_el.value = "";
   }
 
   this.inject = function(text)
@@ -81,7 +81,7 @@ function Operator()
     }
     else{
       r.portal.data.feed[option].message = p;
-      r.portal.data.feed[option].editstamp = Date.now();      
+      r.portal.data.feed[option].editstamp = Date.now();
     }
 
     console.log(r.portal.data.site);
@@ -123,6 +123,21 @@ function Operator()
   {
     r.portal.data.feed.splice(option, 1)
     r.portal.save();
+    r.feed.update();
+  }
+
+  this.commands.filter = function(p) {
+    r.feed.filter = p;
+    r.feed.update();
+  }
+
+  this.commands.clear_filter = function() {
+    r.feed.filter = "";
+    r.feed.update();
+  }
+
+  this.commands.mentions = function() {
+    r.feed.filter = "@" + r.portal.data.name;
     r.feed.update();
   }
 

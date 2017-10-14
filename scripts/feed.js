@@ -5,6 +5,7 @@ function Feed(feed_urls)
 
   this.archives = [];
   this.portals = {};
+  this.filter = "";
 
   this.install = function(el)
   {
@@ -45,9 +46,9 @@ function Feed(feed_urls)
     var portals = r.feed.portals;
     var archive = new DatArchive(window.location.toString());
     var is_owner = await archive.getInfo();
-    
+
     for(name in portals){
-      html += !is_owner.isOwner ? "<ln><a href='"+portals[name]+"'>"+name+"</a></ln>" : "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>" 
+      html += !is_owner.isOwner ? "<ln><a href='"+portals[name]+"'>"+name+"</a></ln>" : "<ln><t data-operation='undat://"+portals[name].replace("dat://","")+"'>"+name+"</t></ln>"
     }
     r.portal.port_list_el.innerHTML = "<list>"+html+"</list>";
   }
@@ -82,7 +83,7 @@ function Feed(feed_urls)
     Promise.all(archive_promises).then(() => {
 
       // Finished attempting to load all ports, maybe do something here?
-      
+
     });
   }
 
@@ -94,6 +95,11 @@ function Feed(feed_urls)
         this.portals[portal.name] = archive.url;
 
         return portal.feed
+          .filter((entry) => {
+            if (!this.filter) return true;
+            if ("@"+portal.name === this.filter) return true;
+            return entry.message.toLowerCase().includes(this.filter.toLowerCase());
+          })
           .map((entry, entry_id) => new Entry(
             Object.assign({}, entry, {
               portal: portal.name,
@@ -107,6 +113,10 @@ function Feed(feed_urls)
   this.refresh = function(entries)
   {
     var html = "";
+
+    if (this.filter) {
+      html += "<c class='clear_filter' data-operation='clear_filter'>Filtering by "+this.filter+"</c>";
+    }
 
     var c = 0;
     for(id in entries){
