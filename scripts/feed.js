@@ -115,7 +115,7 @@ function Feed(feed_urls)
     var html = "";
 
     if (this.filter) {
-      html += "<c class='clear_filter' data-operation='clear_filter'>Filtering by  "+this.filter+"</c>";
+      html += "<c class='clear_filter' data-operation='clear_filter'>Filtering by "+this.filter+"</c>";
     }
 
     var c = 0;
