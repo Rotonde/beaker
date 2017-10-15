@@ -85,6 +85,7 @@ function Feed(feed_urls)
               portal: portal.name,
               dat: archive.url,
               id: entry_id,
+              seed: portal.port.indexOf(r.portal.data.dat) > -1
             })
           ))
       });
