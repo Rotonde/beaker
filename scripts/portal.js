@@ -45,7 +45,7 @@ function Portal(data)
   {
     this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
     this.name_el.innerHTML = "@"+this.data.name;
-    this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site+"</a>";
+    this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site.replace(/^(https?:|)\/\//,'')+"</a>";
     this.desc_el.innerHTML = this.data.desc;
 
     this.entries_el.innerHTML = this.data.feed.length + " <unit>" + (this.data.feed.length == 1 ? "Entry" : "Entries")+"</unit>";
