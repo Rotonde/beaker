@@ -84,6 +84,7 @@ function Entry(data)
         } catch(e) {
           console.error("Error when parsing url:", word, e);
           n.push(word);
+        }
       }
       else{
         n.push(word)
