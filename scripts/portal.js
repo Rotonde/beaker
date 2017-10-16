@@ -45,11 +45,12 @@ function Portal(data)
   {
     this.icon_el.innerHTML = "<img src='/media/content/icon.svg'/>";
     this.name_el.innerHTML = "@"+this.data.name;
-    this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site+"</a>";
+    this.site_el.innerHTML = "<a href='"+this.data.site+"' target='_blank'>"+this.data.site.replace(/^(https?:|)\/\//,'')+"</a>";
     this.desc_el.innerHTML = this.data.desc;
 
     this.entries_el.innerHTML = this.data.feed.length + " <unit>" + (this.data.feed.length == 1 ? "Entry" : "Entries")+"</unit>";
     this.portals_el.innerHTML = this.data.port.length+"<unit>Portals</unit>";
+    this.portals_el.className = this.data.port.length > 45 ? "portals limit" : "portals";
 
     this.name_el.setAttribute("data-operation","edit:name "+this.data.name);
     this.desc_el.setAttribute("data-operation","edit:desc "+this.data.desc);

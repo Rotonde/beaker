@@ -64,7 +64,7 @@ function Operator()
     }
     if(message.indexOf("@") == 0){
       var name = message.split(" ")[0].replace("@","").trim();
-      data.target = r.feed.portals[name];
+      data.target = r.feed.portals[name].dat;
     }
     r.portal.add_entry(new Entry(data));
   }
@@ -72,7 +72,7 @@ function Operator()
   this.commands.edit = function(p,option)
   {
     if(option == "name"){
-      r.portal.data.name = p;
+      r.portal.data.name = p.substr(0,14);
     }
     else if(option == "desc"){
       r.portal.data.desc = p;
@@ -94,12 +94,16 @@ function Operator()
 
   this.commands.undat = function(p,option)
   {
-    var path = "dat://"+option;
+    var path = "dat:"+option;
 
     // Remove
     if(r.portal.data.port.indexOf(path) > -1){
       r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
     }
+    else{
+      console.log("could not find",path)
+    }
+
     r.portal.save();
     r.portal.update();
     r.feed.update();

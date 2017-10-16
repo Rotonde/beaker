@@ -8,6 +8,7 @@ function Entry(data)
   this.editstamp = data.editstamp;
   this.media = data.media;
   this.target = data.target;
+  this.seed = data.seed;
 
   this.to_json = function()
   {
@@ -20,7 +21,7 @@ function Entry(data)
 
     html += "<a href='"+this.dat+"'><img class='icon' src='"+this.dat+"/media/content/icon.svg'></a>";
 
-    html += "<t class='portal'><a href='"+this.dat+"'>@"+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
+    html += "<t class='portal'><a href='"+this.dat+"'>"+(this.seed ? "@" : "~")+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
 
     if(this.portal == r.portal.data.name){
       html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message.replace("'","") : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message.replace("'","")+"'>"+timeSince(this.timestamp)+" ago</c>";
@@ -32,7 +33,9 @@ function Entry(data)
     html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
 
     if(this.media){
-      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+".jpg'/>";
+      var parts = this.media.split(".")
+      if (parts.length === 1) { this.media += ".jpg" } // support og media uploads
+      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+"'/>";
     }
     return "<div class='entry'>"+html+"<hr/></div>";
   }
@@ -108,10 +111,10 @@ function Entry(data)
   this.format_style = function(m)
   {
     if(m.indexOf("{*") > -1 && m.indexOf("*}") > -1){
-      m = m.replace('{*',"<b>").replace('*}',"</b>"); 
+      m = m.replace('{*',"<b>").replace('*}',"</b>");
     }
     if(m.indexOf("{_") > -1 && m.indexOf("_}") > -1){
-      m = m.replace('{_',"<i>").replace('_}',"</i>"); 
+      m = m.replace('{_',"<i>").replace('_}',"</i>");
     }
     return m
   }
