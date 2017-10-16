@@ -77,9 +77,13 @@ function Entry(data)
         n.push("<c class='hashtag' data-operation='filter "+word+"'>"+word+"</c>");
       }
       else if (word.search(/^https?:\/\//) != -1) {
-        var url = new URL(word)
-        var compressed = word.substr(word.indexOf("://")+3,url.hostname.length + 15)+"..";
-        n.push("<a href='"+url.href+"'>"+compressed+"</a>");
+        try {
+          var url = new URL(word)
+          var compressed = word.substr(word.indexOf("://")+3,url.hostname.length + 15)+"..";
+          n.push("<a href='"+url.href+"'>"+compressed+"</a>");
+        } catch(e) {
+          console.error("Error when parsing url:", word, e);
+          n.push(word);
       }
       else{
         n.push(word)
