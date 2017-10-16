@@ -52,6 +52,7 @@ function Rotonde()
         portal_data = JSON.parse(portal_str);
       } catch (err) {
         // TODO: handle invalid portal.json
+        console.error("Malformed JSON in portal.json")
       }
     }
 
