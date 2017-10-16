@@ -16,7 +16,7 @@ body #portal #profile .feed { display:block; }
 body #portal #activity { display:block; margin-bottom:20px; }
 body #portal #activity > * {  width:50%; font-size:30px; }
 body #portal #activity unit { display:block; font-size:11px; color:#aaa; line-height: 20px; padding:5px 0px; }
-body #portal #activity .portals.limit { color:red; }
+body #portal #activity .portals.limit { color:#ccc; }
 
 body #portal .port_status { display:none; }
 body #portal .port_list { display:block; columns:2;}

@@ -62,12 +62,13 @@ function Feed(feed_urls)
         var portal = JSON.parse(portal_data);
         var last_entry = portal.feed[portal.feed.length-1];
         var is_active = Math.floor((new Date() - last_entry.timestamp) / 1000);
+        var rune = portal.port.indexOf(r.portal.data.dat) > -1 ? "@" : "~";
 
-        if(is_active > 190000){
-          this.feed_html += "<ln title='"+(timeSince(last_entry.timestamp))+"' class='dead' data-operation='un"+archive.gateway+"'>"+portal.name+"</ln>";
+        if(is_active > 190000 && portal.name != r.portal.data.name){
+          this.feed_html += "<ln title='"+(timeSince(last_entry.timestamp))+"' class='dead' data-operation='un"+archive.gateway+"'>"+rune+""+portal.name+"</ln>";
         }
         else{
-          this.feed_html+= "<ln title='"+(timeSince(last_entry.timestamp))+"' class='"+(is_active < 150000 ? "active" : "inactive")+"'><a href='"+portal.dat+"'>"+portal.name+"</a></ln>";
+          this.feed_html+= "<ln title='"+(timeSince(last_entry.timestamp))+"' class='"+(is_active < 150000 ? "active" : "inactive")+"'><a href='"+portal.dat+"'>"+rune+""+portal.name+"</a></ln>";
         }
         
         this.portals[portal.name] = portal;

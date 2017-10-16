@@ -64,7 +64,7 @@ function Operator()
     }
     if(message.indexOf("@") == 0){
       var name = message.split(" ")[0].replace("@","").trim();
-      data.target = r.feed.portals[name];
+      data.target = r.feed.portals[name].dat;
     }
     r.portal.add_entry(new Entry(data));
   }
@@ -72,7 +72,7 @@ function Operator()
   this.commands.edit = function(p,option)
   {
     if(option == "name"){
-      r.portal.data.name = p;
+      r.portal.data.name = p.substr(0,14);
     }
     else if(option == "desc"){
       r.portal.data.desc = p;
