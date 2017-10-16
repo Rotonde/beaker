@@ -21,7 +21,7 @@ function Entry(data)
 
     html += "<a href='"+this.dat+"'><img class='icon' src='"+this.dat+"/media/content/icon.svg'></a>";
 
-    html += "<t class='portal'><a href='"+this.dat+"'>"+(this.seed ? "@" : "~")+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
+    html += "<t class='portal'><a href='"+this.dat+"'>"+(this.seed ? "@" : "~")+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+("@"+r.operator.name_pattern.exec(this.message)[1])+"</a>" : "")+"</t>";
 
     if(this.portal == r.portal.data.name){
       html += this.editstamp ? "<c class='editstamp' data-operation='"+('edit:'+this.id+' '+this.message.replace("'",""))+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message.replace("'","")+"'>"+timeSince(this.timestamp)+" ago</c>";

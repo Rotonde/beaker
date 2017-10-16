@@ -6,6 +6,7 @@ function Operator()
   this.hint_el = document.createElement('t'); this.hint_el.id = "hint";
   this.el.appendChild(this.input_el);
   this.el.appendChild(this.hint_el);
+  this.name_pattern = new RegExp(/^@(\w+)/, "i");
 
   this.install = function(el)
   {
@@ -51,6 +52,7 @@ function Operator()
 
   this.commands = {};
 
+  // catches neauoire from @neauoire
   this.commands.say = function(p)
   {
     var message = p;
@@ -65,8 +67,11 @@ function Operator()
     if(media){
       data.media = media;
     }
+    // if message starts with an @ symbol, then we're doing a mention
     if(message.indexOf("@") == 0){
-      var name = message.split(" ")[0].replace("@","").trim();
+      var name = message.split(" ")[0]
+      // execute the regex & get the first matching group (i.e. no @, only the name)
+      name = r.operator.name_pattern.exec(name)[1]
       if(r.feed.portals[name]){
         data.target = r.feed.portals[name].dat;  
       }
