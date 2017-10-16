@@ -23,6 +23,7 @@ function Rotonde()
   {
     var dat = window.location.toString();
     var archive = new DatArchive(dat);
+    var info = await archive.getInfo();
     var portal_str;
     var portal_data;
 
@@ -33,13 +34,13 @@ function Rotonde()
       // it with defaults below.
     }
 
-    if (!portal_str) {
+    if(!portal_str) {
       portal_data = {
         name: "new_name",
         desc: "new_desc",
         port: [
           // @neauoire
-          "dat://2f21e3c122ef0f2555d3a99497710cd875c7b0383f998a2d37c02c042d598485/"
+          window.location.toString()
         ],
         feed: [],
         site: "",
@@ -58,9 +59,7 @@ function Rotonde()
     this.portal = new Portal(portal_data);
     this.portal.install(this.el);
 
-    var archive = new DatArchive(window.location.toString());
-    var is_owner = await archive.getInfo();
-    if(!is_owner.isOwner){
+    if(!info.isOwner){
       this.operator.el.style.display = "none";
     }
   }
