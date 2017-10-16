@@ -67,7 +67,9 @@ function Operator()
     }
     if(message.indexOf("@") == 0){
       var name = message.split(" ")[0].replace("@","").trim();
-      data.target = r.feed.portals[name].dat;
+      if(r.feed.portals[name]){
+        data.target = r.feed.portals[name].dat;  
+      }
     }
     r.portal.add_entry(new Entry(data));
   }
