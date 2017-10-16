@@ -94,12 +94,16 @@ function Operator()
 
   this.commands.undat = function(p,option)
   {
-    var path = "dat://"+option;
+    var path = "dat:"+option;
 
     // Remove
     if(r.portal.data.port.indexOf(path) > -1){
       r.portal.data.port.splice(r.portal.data.port.indexOf(path), 1);
     }
+    else{
+      console.log("could not find",path)
+    }
+
     r.portal.save();
     r.portal.update();
     r.feed.update();

@@ -50,6 +50,7 @@ function Portal(data)
 
     this.entries_el.innerHTML = this.data.feed.length + " <unit>" + (this.data.feed.length == 1 ? "Entry" : "Entries")+"</unit>";
     this.portals_el.innerHTML = this.data.port.length+"<unit>Portals</unit>";
+    this.portals_el.className = this.data.port.length > 45 ? "portals limit" : "portals";
 
     this.name_el.setAttribute("data-operation","edit:name "+this.data.name);
     this.desc_el.setAttribute("data-operation","edit:desc "+this.data.desc);
