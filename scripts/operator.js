@@ -194,7 +194,6 @@ function Operator()
   this.drop = function(e)
   {
     e.preventDefault();
-
     var files = e.dataTransfer.files;
     if (files.length === 1) {
       var file = files[0];
@@ -209,7 +208,12 @@ function Operator()
           await archive.writeFile('/media/content/' + file.name, result);
           await archive.commit();
 
-          r.operator.inject('text_goes_here >> ' + file.name);
+          var commanderText = 'text_goes_here >> ' + file.name 
+          // if there's  already a message written, append ">> file.name" to it
+          if (r.operator.input_el.value) {
+              commanderText = r.operator.input_el.value.trim() + " >> " + file.name;
+          }
+          r.operator.inject(commanderText);
         }
         reader.readAsArrayBuffer(file);
       }
