@@ -167,6 +167,22 @@ function Operator()
       r.reset();
       return;
     }
+
+    if(e.key == "Tab") {
+        e.preventDefault();
+        var words = r.operator.input_el.value.split(" ")
+        var last = words[words.length - 1]
+        var name_match = r.operator.name_pattern.exec(last);
+        if (name_match) {
+            for (var portal_name in r.feed.portals) {
+                if (portal_name && portal_name.substr(0, name_match[1].length) === name_match[1]) {
+                    words[words.length - 1] = "@" + portal_name;
+                    r.operator.inject(words.join(" "));
+                    return;
+                }
+            }
+        }
+    }
     r.operator.update();
   }
 
