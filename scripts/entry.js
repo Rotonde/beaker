@@ -23,11 +23,11 @@ function Entry(data)
 
     html += "<t class='portal'><a href='"+this.dat+"'>"+(this.seed ? "@" : "~")+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+(this.message.split(" ")[0])+"</a>" : "")+"</t>";
 
-    if(this.portal == r.portal.data.name){
+    if(this.portal.name == r.portal.data.name){
       html += this.editstamp ? "<c class='editstamp' data-operation='"+(this.dat == r.portal.data.dat ? 'edit:'+this.id+' '+this.message.replace("'","") : '')+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message.replace("'","")+"'>"+timeSince(this.timestamp)+" ago</c>";
     }
     else{
-      html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal+" '>"+timeSince(this.timestamp)+" ago</c>";
+      html += this.editstamp ? "<c class='editstamp' data-operation='@"+this.portal.name+" '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='@"+this.portal.name+" '>"+timeSince(this.timestamp)+" ago</c>";
     }
     html += "<hr />";
     html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
@@ -100,7 +100,7 @@ function Entry(data)
     for(id in words){
       var word = words[id];
       if(word.substr(0,1) == "@" && r.feed.portals[word.substr(1,word.length-1)]){
-        n.push("<a href='"+r.feed.portals[word.substr(1,word.length-1)]+"' class='known_portal'>"+word+"</a>");
+        n.push("<a href='"+r.feed.portals[word.substr(1,word.length-1)].dat+"' class='known_portal'>"+word+"</a>");
       }
       else{
         n.push(word)
