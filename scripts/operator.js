@@ -13,6 +13,9 @@ function Operator()
 
     this.input_el.addEventListener('keydown',r.operator.key_down, false);
     this.input_el.addEventListener('input',r.operator.input_changed, false);
+    this.input_el.addEventListener('dragover',r.operator.drag_over, false);
+    this.input_el.addEventListener('dragleave',r.operator.drag_leave, false);
+    this.input_el.addEventListener('drop',r.operator.drop, false);
     this.update();
   }
 
@@ -86,7 +89,7 @@ function Operator()
     }
 
     console.log(r.portal.data.site);
-    
+
     r.portal.save();
     r.portal.update();
     r.feed.update();
@@ -163,5 +166,52 @@ function Operator()
   this.input_changed = function(e)
   {
     r.operator.update();
+  }
+
+  this.drag = function(bool)
+  {
+    if (bool) {
+      this.input_el.classList.add('drag')
+    } else {
+      this.input_el.classList.remove('drag')
+    }
+  }
+
+  this.drag_over = function(e)
+  {
+    e.preventDefault();
+    r.operator.drag(true);
+  }
+
+  this.drag_leave = function(e)
+  {
+    e.preventDefault();
+    r.operator.drag(false);
+  }
+
+  this.drop = function(e)
+  {
+    e.preventDefault();
+
+    var files = e.dataTransfer.files;
+    if (files.length === 1) {
+      var file = files[0];
+      var type = file.type;
+
+      if (type === 'image/jpg' || type === 'image/png' || type === 'image/gif') {
+        var reader = new FileReader();
+        reader.onload = async function (e) {
+          var result = e.target.result;
+
+          var archive = new DatArchive(window.location.toString());
+          await archive.writeFile('/media/content/' + file.name, result);
+          await archive.commit();
+
+          r.operator.inject('text_goes_here >> ' + file.name);
+        }
+        reader.readAsArrayBuffer(file);
+      }
+    }
+    r.operator.drag(false);
   }
 }
