@@ -15,6 +15,11 @@ function Feed(feed_urls)
 
     for(id in this.feed_urls){
       var archive = new DatArchive(this.feed_urls[id]);
+      var fileEvents = archive.createFileActivityStream();
+      fileEvents.addEventListener('changed', e => {
+        console.log("Automated update")
+        r.feed.update();
+      });
       archive.gateway = this.feed_urls[id];
       this.archives.push(archive);
     }
@@ -73,19 +78,6 @@ function Feed(feed_urls)
         
         this.portals[portal.name] = portal;
 
-        // Listen to active feeds
-        try {
-          if(is_active < 150000){
-            fileEvents = archive.createFileActivityStream();
-            fileEvents.addEventListener('changed', e => {
-              console.log("Automated update")
-              r.feed.update();
-            });
-          }
-        } catch (err) {
-          console.warn(err);
-        }
-
         return portal.feed
           .filter((entry) => {
             if (!this.filter) return true;
@@ -118,7 +110,6 @@ function Feed(feed_urls)
     console.log("Refresh!")
 
     var html = this.filter ? "<c class='clear_filter' data-operation='clear_filter'>Filtering by "+this.filter+"</c>" : "";
-
     var c = 0;
     for(id in entries){
       var entry = entries[id];
