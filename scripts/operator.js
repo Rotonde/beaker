@@ -72,7 +72,7 @@ function Operator()
   this.commands.edit = function(p,option)
   {
     if(option == "name"){
-      r.portal.data.name = p;
+      r.portal.data.name = p.substr(0,14);
     }
     else if(option == "desc"){
       r.portal.data.desc = p;
