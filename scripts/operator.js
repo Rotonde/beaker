@@ -6,6 +6,7 @@ function Operator()
   this.hint_el = document.createElement('t'); this.hint_el.id = "hint";
   this.el.appendChild(this.input_el);
   this.el.appendChild(this.hint_el);
+  this.name_pattern = new RegExp(/^@(\w+)/, "i");
 
   this.install = function(el)
   {
@@ -51,6 +52,7 @@ function Operator()
 
   this.commands = {};
 
+  // catches neauoire from @neauoire
   this.commands.say = function(p)
   {
     var message = p;
@@ -65,8 +67,11 @@ function Operator()
     if(media){
       data.media = media;
     }
+    // if message starts with an @ symbol, then we're doing a mention
     if(message.indexOf("@") == 0){
-      var name = message.split(" ")[0].replace("@","").trim();
+      var name = message.split(" ")[0]
+      // execute the regex & get the first matching group (i.e. no @, only the name)
+      name = r.operator.name_pattern.exec(name)[1]
       if(r.feed.portals[name]){
         data.target = r.feed.portals[name].dat;  
       }
@@ -162,6 +167,22 @@ function Operator()
       r.reset();
       return;
     }
+
+    if(e.key == "Tab") {
+        e.preventDefault();
+        var words = r.operator.input_el.value.split(" ")
+        var last = words[words.length - 1]
+        var name_match = r.operator.name_pattern.exec(last);
+        if (name_match) {
+            for (var portal_name in r.feed.portals) {
+                if (portal_name && portal_name.substr(0, name_match[1].length) === name_match[1]) {
+                    words[words.length - 1] = "@" + portal_name;
+                    r.operator.inject(words.join(" "));
+                    return;
+                }
+            }
+        }
+    }
     r.operator.update();
   }
 
@@ -194,7 +215,6 @@ function Operator()
   this.drop = function(e)
   {
     e.preventDefault();
-
     var files = e.dataTransfer.files;
     if (files.length === 1) {
       var file = files[0];
@@ -209,7 +229,12 @@ function Operator()
           await archive.writeFile('/media/content/' + file.name, result);
           await archive.commit();
 
-          r.operator.inject('text_goes_here >> ' + file.name);
+          var commanderText = 'text_goes_here >> ' + file.name 
+          // if there's  already a message written, append ">> file.name" to it
+          if (r.operator.input_el.value) {
+              commanderText = r.operator.input_el.value.trim() + " >> " + file.name;
+          }
+          r.operator.inject(commanderText);
         }
         reader.readAsArrayBuffer(file);
       }
