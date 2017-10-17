@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write links/** scripts/** index.html"
+    "format": "prettier --write links/** scripts/**"
   },
   "repository": "git@github.com:rotonde/beaker.git",
   "author": "Rotonde",
