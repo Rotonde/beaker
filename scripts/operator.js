@@ -24,7 +24,25 @@ function Operator()
   {
     var words = this.input_el.value.trim().split(" ").length;
     var chars = this.input_el.value.trim().length;
-    this.hint_el.innerHTML = chars+"C "+words+"W";
+    var key = this.input_el.value.split(" ")[this.input_el.value.split(" ").length-1];
+    var autocomplete = key ? this.find_portal_with_key(key) : null;
+
+    if((key.substr(0,1) == "@" || key.substr(0,1) == "~") && autocomplete && autocomplete != "@"+key && autocomplete != "~"+key){
+      this.hint_el.innerHTML = this.find_portal_with_key(key);
+    }
+    else{
+      this.hint_el.innerHTML = chars+"C "+words+"W";  
+    }
+  }
+
+  this.find_portal_with_key = function(key)
+  {
+    key = key.replace("@","").replace("@","").trim();
+    for(name in r.feed.portals){
+      if(name.substr(0,key.length) == key){
+        return name;
+      }
+    }
   }
 
   this.validate = function()
@@ -168,20 +186,21 @@ function Operator()
       return;
     }
 
-    if(e.key == "Tab") {
-        e.preventDefault();
-        var words = r.operator.input_el.value.split(" ")
-        var last = words[words.length - 1]
-        var name_match = r.operator.name_pattern.exec(last);
-        if (name_match) {
-            for (var portal_name in r.feed.portals) {
-                if (portal_name && portal_name.substr(0, name_match[1].length) === name_match[1]) {
-                    words[words.length - 1] = "@" + portal_name;
-                    r.operator.inject(words.join(" "));
-                    return;
-                }
-            }
+    if(e.key == "Tab"){
+      e.preventDefault();
+      var words = r.operator.input_el.value.split(" ");
+      var last = words[words.length - 1]
+      var name_match = r.operator.name_pattern.exec(last);
+      if(name_match) {
+        for (var portal_name in r.feed.portals) {
+          if (portal_name && portal_name.substr(0, name_match[1].length) === name_match[1]) {
+            words[words.length - 1] = "@" + portal_name;
+            r.operator.inject(words.join(" ")+" ");
+            r.operator.update();
+            return;
+          }
         }
+      }
     }
     r.operator.update();
   }
