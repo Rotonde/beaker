@@ -1,0 +1,15 @@
+{
+  "name": "beaker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write links/** scripts/** index.html"
+  },
+  "repository": "git@github.com:rotonde/beaker.git",
+  "author": "Rotonde",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.7.4"
+  }
+}
