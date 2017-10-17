@@ -30,7 +30,7 @@ function Entry(data)
       html += this.editstamp ? "<c class='editstamp' data-operation='"+this.portal+": '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='"+this.portal+": '>"+timeSince(this.timestamp)+" ago</c>";
     }
     html += "<hr />";
-    html += "<t class='message'>"+(this.formatter(this.message))+"</t><br/>";
+    html += "<t class='message' dir='auto'>"+(this.formatter(this.message))+"</t><br/>";
 
     if(this.media){
       var parts = this.media.split(".")
