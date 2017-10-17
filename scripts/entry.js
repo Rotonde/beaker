@@ -1,5 +1,4 @@
-function Entry(data)
-{
+function Entry(data) {
   this.portal = data.portal ? data.portal : r.portal.data;
   this.message = data.message;
   this.timestamp = data.timestamp;
@@ -10,38 +9,91 @@ function Entry(data)
   this.target = data.target;
   this.seed = data.seed;
 
-  this.to_json = function()
-  {
-    return {message:this.message,timestamp:this.timestamp,editstamp:this.editstamp,media:this.media,target:this.target};
-  }
+  this.to_json = function() {
+    return {
+      message: this.message,
+      timestamp: this.timestamp,
+      editstamp: this.editstamp,
+      media: this.media,
+      target: this.target
+    };
+  };
 
-  this.to_html = function()
-  {
+  this.to_html = function() {
     var html = "";
 
-    html += "<a href='"+this.dat+"'><img class='icon' src='"+this.dat+"/media/content/icon.svg'></a>";
+    html +=
+      "<a href='" +
+      this.dat +
+      "'><img class='icon' src='" +
+      this.dat +
+      "/media/content/icon.svg'></a>";
 
-    html += "<t class='portal'><a href='"+this.dat+"'>"+(this.seed ? "@" : "~")+this.portal+"</a>"+(this.target ? " > <a href='"+this.target+"'>"+("@"+r.operator.name_pattern.exec(this.message)[1])+"</a>" : "")+"</t>";
+    html +=
+      "<t class='portal'><a href='" +
+      this.dat +
+      "'>" +
+      (this.seed ? "@" : "~") +
+      this.portal +
+      "</a>" +
+      (this.target
+        ? " > <a href='" +
+          this.target +
+          "'>" +
+          ("@" + r.operator.name_pattern.exec(this.message)[1]) +
+          "</a>"
+        : "") +
+      "</t>";
 
-    if(this.portal == r.portal.data.name){
-      html += this.editstamp ? "<c class='editstamp' data-operation='"+('edit:'+this.id+' '+this.message.replace("'",""))+"'>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='edit:"+this.id+" "+this.message.replace("'","")+"'>"+timeSince(this.timestamp)+" ago</c>";
-    }
-    else{
-      html += this.editstamp ? "<c class='editstamp' data-operation='"+this.portal+": '>edited "+timeSince(this.editstamp)+" ago</c>" : "<c class='timestamp' data-operation='"+this.portal+": '>"+timeSince(this.timestamp)+" ago</c>";
+    if (this.portal == r.portal.data.name) {
+      html += this.editstamp
+        ? "<c class='editstamp' data-operation='" +
+          ("edit:" + this.id + " " + this.message.replace("'", "")) +
+          "'>edited " +
+          timeSince(this.editstamp) +
+          " ago</c>"
+        : "<c class='timestamp' data-operation='edit:" +
+          this.id +
+          " " +
+          this.message.replace("'", "") +
+          "'>" +
+          timeSince(this.timestamp) +
+          " ago</c>";
+    } else {
+      html += this.editstamp
+        ? "<c class='editstamp' data-operation='" +
+          this.portal +
+          ": '>edited " +
+          timeSince(this.editstamp) +
+          " ago</c>"
+        : "<c class='timestamp' data-operation='" +
+          this.portal +
+          ": '>" +
+          timeSince(this.timestamp) +
+          " ago</c>";
     }
     html += "<hr />";
-    html += "<t class='message' dir='auto'>"+(this.formatter(this.message))+"</t><br/>";
+    html +=
+      "<t class='message' dir='auto'>" +
+      this.formatter(this.message) +
+      "</t><br/>";
 
-    if(this.media){
-      var parts = this.media.split(".")
-      if (parts.length === 1) { this.media += ".jpg" } // support og media uploads
-      html += "<img class='media' src='"+this.dat+"/media/content/"+this.media+"'/>";
+    if (this.media) {
+      var parts = this.media.split(".");
+      if (parts.length === 1) {
+        this.media += ".jpg";
+      } // support og media uploads
+      html +=
+        "<img class='media' src='" +
+        this.dat +
+        "/media/content/" +
+        this.media +
+        "'/>";
     }
-    return "<div class='entry'>"+html+"<hr/></div>";
-  }
+    return "<div class='entry'>" + html + "<hr/></div>";
+  };
 
-  this.formatter = function(message)
-  {
+  this.formatter = function(message) {
     var m = message;
 
     m = this.escape_html(m);
@@ -51,89 +103,97 @@ function Entry(data)
     m = this.format_style(m);
 
     return m;
-  }
+  };
 
-  this.escape_html = function(m)
-  {
+  this.escape_html = function(m) {
     return m
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
-  }
+  };
 
-  this.format_links = function(m)
-  {
+  this.format_links = function(m) {
     var words = m.split(" ");
     var n = [];
-    for(id in words){
+    for (id in words) {
       var word = words[id];
-      if(word.substr(0,6) == "dat://"){
-        var compressed = word.substr(0,12)+".."+word.substr(word.length-3,2);
-        n.push("<a href='"+word+"'>"+compressed+"</a>");
-      }
-      else if(word.substr(0,1) == "#"){
-        n.push("<c class='hashtag' data-operation='filter "+word+"'>"+word+"</c>");
-      }
-      else if (word.search(/^https?:\/\//) != -1) {
+      if (word.substr(0, 6) == "dat://") {
+        var compressed =
+          word.substr(0, 12) + ".." + word.substr(word.length - 3, 2);
+        n.push("<a href='" + word + "'>" + compressed + "</a>");
+      } else if (word.substr(0, 1) == "#") {
+        n.push(
+          "<c class='hashtag' data-operation='filter " +
+            word +
+            "'>" +
+            word +
+            "</c>"
+        );
+      } else if (word.search(/^https?:\/\//) != -1) {
         try {
-          var url = new URL(word)
-          var compressed = word.substr(word.indexOf("://")+3,url.hostname.length + 15)+"..";
-          n.push("<a href='"+url.href+"'>"+compressed+"</a>");
-        } catch(e) {
+          var url = new URL(word);
+          var compressed =
+            word.substr(word.indexOf("://") + 3, url.hostname.length + 15) +
+            "..";
+          n.push("<a href='" + url.href + "'>" + compressed + "</a>");
+        } catch (e) {
           console.error("Error when parsing url:", word, e);
           n.push(word);
         }
-      }
-      else{
-        n.push(word)
+      } else {
+        n.push(word);
       }
     }
     return n.join(" ").trim();
-  }
+  };
 
-  this.highlight_portal = function(m)
-  {
-    return m.replace('@'+r.portal.data.name,'<t class="highlight">@'+r.portal.data.name+"</t>")
-  }
+  this.highlight_portal = function(m) {
+    return m.replace(
+      "@" + r.portal.data.name,
+      '<t class="highlight">@' + r.portal.data.name + "</t>"
+    );
+  };
 
-  this.link_portals = function(m)
-  {
+  this.link_portals = function(m) {
     var words = m.split(" ");
     var n = [];
-    for(id in words){
+    for (id in words) {
       var word = words[id];
-      var name_match = r.operator.name_pattern.exec(word)
-      if(name_match && r.feed.portals[name_match[1]]){
-        var remnants = word.substr(name_match[0].length)
-        n.push("<a href='"+r.feed.portals[name_match[1]].dat+"' class='known_portal'>"+name_match[0]+"</a>"+remnants);
-      }
-      else{
-        n.push(word)
+      var name_match = r.operator.name_pattern.exec(word);
+      if (name_match && r.feed.portals[name_match[1]]) {
+        var remnants = word.substr(name_match[0].length);
+        n.push(
+          "<a href='" +
+            r.feed.portals[name_match[1]].dat +
+            "' class='known_portal'>" +
+            name_match[0] +
+            "</a>" +
+            remnants
+        );
+      } else {
+        n.push(word);
       }
     }
     return n.join(" ").trim();
-  }
-  this.format_style = function(m)
-  {
-    if(m.indexOf("{*") > -1 && m.indexOf("*}") > -1){
-      m = m.replace('{*',"<b>").replace('*}',"</b>");
+  };
+  this.format_style = function(m) {
+    if (m.indexOf("{*") > -1 && m.indexOf("*}") > -1) {
+      m = m.replace("{*", "<b>").replace("*}", "</b>");
     }
-    if(m.indexOf("{_") > -1 && m.indexOf("_}") > -1){
-      m = m.replace('{_',"<i>").replace('_}',"</i>");
+    if (m.indexOf("{_") > -1 && m.indexOf("_}") > -1) {
+      m = m.replace("{_", "<i>").replace("_}", "</i>");
     }
-    return m
-  }
+    return m;
+  };
 
-  this.time_ago = function()
-  {
+  this.time_ago = function() {
     return timeSince(this.timestamp);
-  }
+  };
 }
 
-function timeSince(date)
-{
+function timeSince(date) {
   var seconds = Math.floor((new Date() - date) / 1000);
   var interval = Math.floor(seconds / 31536000);
 
